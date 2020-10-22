@@ -24,8 +24,6 @@ function CardPaging() {
         }
     }
 
-    console.log(openedPage)
-
     return (
         <S.CardPaging>
             <S.MobileView>
@@ -37,6 +35,7 @@ function CardPaging() {
                         <Page
                             key={color}
                             color={color}
+                            colors={colors}
                             i={i}
                             pageX={pageX}
                             pageAnimation={pageAnimation}
