@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {MotionValue, PanInfo, AnimationControls, Variants} from 'framer-motion/types';
-import {useTransform} from 'framer-motion';
+import {useTransform, useMotionValue} from 'framer-motion';
 
 import * as S from './CardPaging.styles';
 
@@ -11,27 +11,57 @@ interface CardProps {
     pageAnimation: AnimationControls;
     setOpenedPage: React.Dispatch<React.SetStateAction<number | null>>;
     openedPage: number | null;
+    colors: string[];
 }
 
-function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage}: CardProps) {
+function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
     const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const pageWith = pageRef.current?.getBoundingClientRect().width || 0;
     const pageScale = useTransform(pageX, [-(pageWith * i) - 50, -(pageWith * i), -(pageWith * i) + 50], [0.9, 1, 0.9]);
+    const pageY = useMotionValue(0);
 
     useEffect(() => {
+        //Refresh component to use the updated pageRef 
         setCount(c => ++c);
     }, []);
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        const currFullPage = Math.floor(pageX.get() / pageWith);
+        if (pageX.get() === 0) {
+            if (pageY.get() > 60) {
+                setOpenedPage(null);
+            }
+        } else {
+            if (info.offset.x > 0) {
+                //Dragging direction is to the left
+                const pagePassed = Math.round(info.offset.x / pageWith);
+                const targetPageIndex = i - pagePassed;
 
-        if (openedPage === null) {
-            console.log('null')
-            setOpenedPage(null);
+                if (targetPageIndex < 0) {
+                    pageAnimation.start({
+                        x: 0
+                    })
                 } else {
-            console.log('hindi')
-            setOpenedPage(null);
+                    pageAnimation.start({
+                        x: -((i - pagePassed) * pageWith)
+                    });
+                }
+            } else {
+                //Dragging direction is to the right
+                const pagePassed = (Math.round(info.offset.x / (pageWith))) * -1;
+                const targetIndex = i + pagePassed
+
+                if (targetIndex > colors.length - 1) {
+                    pageAnimation.start({
+                        x: -(colors.length - 1) * pageWith
+                    })
+                } else {
+                    pageAnimation.start({
+                        x: -(i + pagePassed) * pageWith
+                    });
+                }
+            }
+        }
     }
 
     function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -49,6 +79,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage}: CardP
             animate={pageAnimation}
             style={{
                 x: pageX,
+                y: pageY,
                 scale: pageScale
             }}
             dragConstraints={{
