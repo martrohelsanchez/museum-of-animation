@@ -19,6 +19,14 @@ export const MobileView = styled.div`
     width: 411px;
     height: 731px;
     border-radius: 30px;
+
+    @media all and (max-width: ${({theme}) => theme.mobile}) {
+        & {
+            border-radius: 0;
+            height: 100%;
+            width: 100%;
+        }
+    }
 `;
 
 export const PageCont = styled(motion.div)`
