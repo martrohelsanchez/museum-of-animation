@@ -29,14 +29,15 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage}: CardP
         if (openedPage === null) {
             console.log('null')
             setOpenedPage(null);
-        } else {
+                } else {
             console.log('hindi')
             setOpenedPage(null);
-        }
+    }
 
-        // pageAnimation.start({
-        //     x: currFullPage * pageWith
-        // });
+    function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        if (pageY.get() < 5 && pageY.get() > -5 && pageX.get() < 3 && pageX.get() > -3) {
+            setOpenedPage(i);
+        }
     }
 
     return (
@@ -56,7 +57,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage}: CardP
                 bottom: 0
             }}
             onDragEnd={onDragEnd}
-            onClick={e => setOpenedPage(i)}
+            onClick={pageOnClick}
         >
         </S.Page>
     )
