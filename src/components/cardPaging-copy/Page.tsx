@@ -43,8 +43,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage}: CardP
         <S.Page 
             ref={pageRef}
             bgColor={color}
-            drag={true}
-            // drag={openedPage === null ? 'x' : 'y'}
+            drag={openedPage === null ? 'x' : 'y'}
             dragMomentum={false}
             animate={pageAnimation}
             style={{
