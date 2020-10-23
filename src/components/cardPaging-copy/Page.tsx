@@ -38,7 +38,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
         } else {
             if (info.offset.x > 0) {
                 //Dragging direction is to the left
-                const pagePassed = Math.round(info.offset.x / closedPageWidth);
+                const pagePassed = getPagePassed(info.offset.x / closedPageWidth, 0.35);
                 const targetPageIndex = i - pagePassed;
 
                 if (targetPageIndex < 0) {
@@ -52,7 +52,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
                 }
             } else {
                 //Dragging direction is to the right
-                const pagePassed = (Math.round(info.offset.x / (closedPageWidth))) * -1;
+                const pagePassed = getPagePassed(info.offset.x / closedPageWidth, 0.35);
                 const targetIndex = i + pagePassed
 
                 if (targetIndex > colors.length - 1) {
@@ -65,6 +65,17 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
                     });
                 }
             }
+        }
+    }
+
+    function getPagePassed(num: number, wiggleRoom: number) {
+        num = Math.abs(num);
+        const decimalPart = num % 1;
+
+        if (decimalPart > wiggleRoom) {
+            return Math.ceil(num);
+        } {
+            return Math.floor(num);
         }
     }
 
