@@ -15,6 +15,7 @@ interface CardProps {
 }
 
 function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
+    const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
     const closedPageWidth = closedPageWidthRef.current;
@@ -24,6 +25,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     useEffect(() => {
         if (pageRef.current) {
             closedPageWidthRef.current = pageRef.current.getBoundingClientRect().width;
+            setCount(c => ++c);
         }
     }, []);
 
