@@ -25,6 +25,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     useEffect(() => {
         if (pageRef.current) {
             closedPageWidthRef.current = pageRef.current.getBoundingClientRect().width;
+            //Rerender component to update closedPageWith
             setCount(c => ++c);
         }
     }, []);
