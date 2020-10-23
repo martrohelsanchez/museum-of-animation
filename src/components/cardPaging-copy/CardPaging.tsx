@@ -10,7 +10,6 @@ import theme from '../../theme';
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging() {
-    const [currPageIndex, setCurrPageIndex] = useState(0);
     const [openedPage, setOpenedPage] = useState<number | null>(null);
     const pageX = useMotionValue(0);
     const pageAnimation = useAnimation();
