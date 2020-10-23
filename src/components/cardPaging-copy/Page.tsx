@@ -28,7 +28,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (pageX.get() === 0) {
-            if (pageY.get() > 60) {
+            if (pageY.get() > 60 || pageY.get() < -60) {
                 setOpenedPage(null);
             }
         } else {
