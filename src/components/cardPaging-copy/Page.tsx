@@ -65,7 +65,8 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     }
 
     function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if (pageY.get() < 5 && pageY.get() > -5 && pageX.get() < 3 && pageX.get() > -3) {
+        const dragX = -(i * closedPageWidth) - pageX.get();
+        if (pageY.get() < 3 && pageY.get() > -3 && dragX < 3 && dragX > -3) {
             setOpenedPage(i);
         }
     }
