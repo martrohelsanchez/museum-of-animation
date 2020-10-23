@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {MotionValue, PanInfo, AnimationControls, Variants, transform, motion} from 'framer-motion/types';
-import {useTransform, useMotionValue} from 'framer-motion';
+import {MotionValue, PanInfo, AnimationControls} from 'framer-motion/types';
+import {useTransform} from 'framer-motion';
 
 import * as S from './CardPaging.styles';
 
@@ -8,13 +8,14 @@ interface CardProps {
     color: string;
     i: number;
     pageX: MotionValue<number>;
+    pageY: MotionValue<number>;
     pageAnimation: AnimationControls;
     setOpenedPage: React.Dispatch<React.SetStateAction<number | null>>;
     openedPage: number | null;
     colors: string[];
 }
 
-function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
+function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
     const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
@@ -22,7 +23,6 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     const input = [-(closedPageWidth * i) - closedPageWidth, -(closedPageWidth * i), -(closedPageWidth * i) + closedPageWidth];
     const pageScale = useTransform(pageX, input, [0.9, 1, 0.9]);
     const pageRotateY = useTransform(pageX, input, [45, 0, -45]);
-    const pageY = useMotionValue(0);
 
     useEffect(() => {
         if (pageRef.current) {
@@ -34,9 +34,9 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (pageX.get() === 0) {
-            if (pageY.get() > 60 || pageY.get() < -60) {
-                setOpenedPage(null);
-            }
+            // if (pageY.get() > 60 || pageY.get() < -60) {
+            //     setOpenedPage(null);
+            // }
         } else {
             if (info.offset.x > 0) {
                 //Dragging direction is to the left
@@ -91,12 +91,11 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     return (
         <S.PageWrapper 
             ref={pageRef}
-            drag={openedPage === null ? 'x' : 'y'}
+            drag={openedPage === null ? 'x' : false}
             dragMomentum={false}
             animate={pageAnimation}
             style={{
                 x: pageX,
-                y: pageY,
                 scale: pageScale,
             }}
             dragConstraints={{
