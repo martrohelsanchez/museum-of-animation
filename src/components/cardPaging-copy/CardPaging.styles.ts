@@ -72,3 +72,12 @@ export const SwipeSvg = styled.svg<{hide: boolean}>`
 export const Swipe = styled.polygon`
     opacity: .6;
 `;
+
+export const Edge = styled(motion.div)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 94%;
+    width: 90%;
+    overflow: hidden;
+`;
