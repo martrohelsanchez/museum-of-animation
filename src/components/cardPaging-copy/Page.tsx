@@ -15,15 +15,16 @@ interface CardProps {
 }
 
 function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
-    const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
-    const pageWith = pageRef.current?.getBoundingClientRect().width || 0;
-    const pageScale = useTransform(pageX, [-(pageWith * i) - 50, -(pageWith * i), -(pageWith * i) + 50], [0.9, 1, 0.9]);
+    const closedPageWidthRef = useRef(0);
+    const closedPageWidth = closedPageWidthRef.current;
+    const pageScale = useTransform(pageX, [-(closedPageWidth * i) - 50, -(closedPageWidth * i), -(closedPageWidth * i) + 50], [0.9, 1, 0.9]);
     const pageY = useMotionValue(0);
 
     useEffect(() => {
-        //Refresh component to use the updated pageRef 
-        setCount(c => ++c);
+        if (pageRef.current) {
+            closedPageWidthRef.current = pageRef.current.getBoundingClientRect().width;
+        }
     }, []);
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
@@ -34,7 +35,7 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
         } else {
             if (info.offset.x > 0) {
                 //Dragging direction is to the left
-                const pagePassed = Math.round(info.offset.x / pageWith);
+                const pagePassed = Math.round(info.offset.x / closedPageWidth);
                 const targetPageIndex = i - pagePassed;
 
                 if (targetPageIndex < 0) {
@@ -43,21 +44,21 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
                     })
                 } else {
                     pageAnimation.start({
-                        x: -((i - pagePassed) * pageWith)
+                        x: -((i - pagePassed) * closedPageWidth)
                     });
                 }
             } else {
                 //Dragging direction is to the right
-                const pagePassed = (Math.round(info.offset.x / (pageWith))) * -1;
+                const pagePassed = (Math.round(info.offset.x / (closedPageWidth))) * -1;
                 const targetIndex = i + pagePassed
 
                 if (targetIndex > colors.length - 1) {
                     pageAnimation.start({
-                        x: -(colors.length - 1) * pageWith
+                        x: -(colors.length - 1) * closedPageWidth
                     })
                 } else {
                     pageAnimation.start({
-                        x: -(i + pagePassed) * pageWith
+                        x: -(i + pagePassed) * closedPageWidth
                     });
                 }
             }
