@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {MotionValue, PanInfo, AnimationControls, Variants} from 'framer-motion/types';
+import {MotionValue, PanInfo, AnimationControls, Variants, transform, motion} from 'framer-motion/types';
 import {useTransform, useMotionValue} from 'framer-motion';
 
 import * as S from './CardPaging.styles';
@@ -19,7 +19,9 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
     const closedPageWidth = closedPageWidthRef.current;
-    const pageScale = useTransform(pageX, [-(closedPageWidth * i) - 50, -(closedPageWidth * i), -(closedPageWidth * i) + 50], [0.9, 1, 0.9]);
+    const input = [-(closedPageWidth * i) - closedPageWidth, -(closedPageWidth * i), -(closedPageWidth * i) + closedPageWidth];
+    const pageScale = useTransform(pageX, input, [0.9, 1, 0.9]);
+    const pageRotateY = useTransform(pageX, input, [45, 0, -45]);
     const pageY = useMotionValue(0);
 
     useEffect(() => {
@@ -87,16 +89,15 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
     }
 
     return (
-        <S.Page 
+        <S.PageWrapper 
             ref={pageRef}
-            bgColor={color}
             drag={openedPage === null ? 'x' : 'y'}
             dragMomentum={false}
             animate={pageAnimation}
             style={{
                 x: pageX,
                 y: pageY,
-                scale: pageScale
+                scale: pageScale,
             }}
             dragConstraints={{
                 top: 0,
@@ -106,7 +107,15 @@ function Page({color, i, pageX, pageAnimation, openedPage, setOpenedPage, colors
             onDragEnd={onDragEnd}
             onClick={pageOnClick}
         >
-        </S.Page>
+            <S.Page
+                bgColor={color}
+                style={{
+                    rotateY: pageRotateY,
+                    perspective: '600px'
+                }}
+            >
+            </S.Page>
+        </S.PageWrapper>
     )
 }
 
