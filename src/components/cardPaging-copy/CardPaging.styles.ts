@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {MobileView as mobileview} from '../../shared/styles';
 
 export const CardPaging = styled.div`
-    background-color: #2d6187;
+    background-color: #8bcdcd;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,23 +11,11 @@ export const CardPaging = styled.div`
     height: 100vh;
 `;
 
-export const MobileView = styled.div`
+export const MobileView = styled(mobileview)`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: white;
-    width: 411px;
-    height: 731px;
-    border-radius: 30px;
-
-    @media all and (max-width: ${({theme}) => theme.mobile}) {
-        & {
-            border-radius: 0;
-            height: 100%;
-            width: 100%;
-        }
-    }
 `;
 
 export const PageCont = styled(motion.div)`
@@ -60,7 +49,7 @@ export const Page = styled(motion.div)<{bgColor: string}>`
     background-color: ${({bgColor}) => bgColor};
     height: 100%;
     width: 100%;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 `;
 
 export const SwipeSvg = styled.svg<{hide: boolean}>`
