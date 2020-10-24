@@ -110,7 +110,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
             }}
             onDragEnd={onDragEnd}
             onClick={pageOnClick}
-            variants={pageVariant}
+            variants={pageWrapper}
             custom={openedPage === null ? closedPageWidth : [cardPagingWidth * 0.90, openedPage]}
         >
             <S.Page
@@ -119,6 +119,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
                     rotateY: openedPage === null ? pageRotateY : 0,
                     perspective: '600px'
                 }}
+                variants={pageVariant}
             >
                 <S.SwipeSvg 
                     viewBox="0 0 72 39.25"
@@ -133,13 +134,22 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     )
 }
 
-const pageVariant: Variants = {
+const pageWrapper: Variants = {
     openPage: ([openedCardWidth, selectedPage]) => ({
         x: -(openedCardWidth * selectedPage)
     }),
     closePage: (closedPageWidth) => ({
         x: -(closedPageWidth * lastOpenedPage)
     })
+}
+
+const pageVariant: Variants = {
+    openPage: {
+        borderRadius: '50px'
+    },
+    closePage: {
+        borderRadius: '20px'
+    }
 }
 
 export default Page;
