@@ -28,7 +28,6 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     const pageRotateY = useTransform(pageX, input, [45, 0, -45]);
 
     useEffect(() => {
-        window.scrollTo(0, 1);
         if (pageRef.current) {
             closedPageWidthRef.current = pageRef.current.getBoundingClientRect().width;
             //Rerender component to update closedPageWith
@@ -88,6 +87,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         const dragX = -(i * closedPageWidth) - pageX.get();
         if (pageY.get() < 3 && pageY.get() > -3 && dragX < 3 && dragX > -3) {
+            document.documentElement.requestFullscreen();
             lastOpenedPage = i;
             setOpenedPage(i);
         }
