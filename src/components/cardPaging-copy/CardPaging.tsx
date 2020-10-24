@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import * as S from './CardPaging.styles';
 import {useMotionValue, useAnimation, Variants} from 'framer-motion';
@@ -10,10 +10,18 @@ import theme from '../../theme';
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging() {
+    const [count, setCount] = useState(0);
     const [openedPage, setOpenedPage] = useState<number | null>(null);
     const pageX = useMotionValue(0);
     const pageAnimation = useAnimation();
     const pageY = useMotionValue(0);
+    const cardPagingRef = useRef<HTMLDivElement>(null!);
+    const cardPagingWidthRef = useRef(0);
+
+    useEffect(() => {
+        cardPagingWidthRef.current = cardPagingRef.current.getBoundingClientRect().width;
+        setCount(c => ++c);
+    }, [])
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.y > 60 || info.offset.y < -60) {
@@ -24,7 +32,9 @@ function CardPaging() {
     return (
         <ThemeProvider theme={theme}>
             <S.CardPaging>
-                <S.MobileView>
+                <S.MobileView
+                    ref={cardPagingRef}
+                >
                     <S.Edge
                         animate={openedPage === null ? 'closePage' : 'openPage'}
                     >
@@ -51,6 +61,7 @@ function CardPaging() {
                                     pageAnimation={pageAnimation}
                                     openedPage={openedPage}
                                     setOpenedPage={setOpenedPage}
+                                    cardPagingWidth={cardPagingWidthRef.current}
                                 />
                             ))}
                         </S.PageCont>

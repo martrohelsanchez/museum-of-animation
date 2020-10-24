@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {MotionValue, PanInfo, AnimationControls} from 'framer-motion/types';
+import {MotionValue, PanInfo, AnimationControls, Variants} from 'framer-motion/types';
 import {useTransform} from 'framer-motion';
 
 import * as S from './CardPaging.styles';
@@ -13,9 +13,12 @@ interface CardProps {
     setOpenedPage: React.Dispatch<React.SetStateAction<number | null>>;
     openedPage: number | null;
     colors: string[];
+    cardPagingWidth: number;
 }
 
-function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage, colors}: CardProps) {
+let lastOpenedPage = 0;
+
+function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage, colors, cardPagingWidth}: CardProps) {
     const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
@@ -49,7 +52,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
                     })
                 } else {
                     pageAnimation.start({
-                        x: -((i - pagePassed) * closedPageWidth)
+                        x: -(targetPageIndex * closedPageWidth)
                     });
                 }
             } else {
@@ -63,7 +66,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
                     })
                 } else {
                     pageAnimation.start({
-                        x: -(i + pagePassed) * closedPageWidth
+                        x: -(targetIndex) * closedPageWidth
                     });
                 }
             }
@@ -84,6 +87,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         const dragX = -(i * closedPageWidth) - pageX.get();
         if (pageY.get() < 3 && pageY.get() > -3 && dragX < 3 && dragX > -3) {
+            lastOpenedPage = i;
             setOpenedPage(i);
         }
     }
@@ -96,7 +100,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
             animate={pageAnimation}
             style={{
                 x: pageX,
-                scale: pageScale,
+                scale: openedPage === null ? pageScale : 1,
             }}
             dragConstraints={{
                 top: 0,
@@ -105,11 +109,13 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
             }}
             onDragEnd={onDragEnd}
             onClick={pageOnClick}
+            variants={pageVariant}
+            custom={openedPage === null ? closedPageWidth : [cardPagingWidth * 0.90, openedPage]}
         >
             <S.Page
                 bgColor={color}
                 style={{
-                    rotateY: pageRotateY,
+                    rotateY: openedPage === null ? pageRotateY : 0,
                     perspective: '600px'
                 }}
             >
@@ -124,6 +130,15 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
             </S.Page>
         </S.PageWrapper>
     )
+}
+
+const pageVariant: Variants = {
+    openPage: ([openedCardWidth, selectedPage]) => ({
+        x: -(openedCardWidth * selectedPage)
+    }),
+    closePage: (closedPageWidth) => ({
+        x: -(closedPageWidth * lastOpenedPage)
+    })
 }
 
 export default Page;
