@@ -28,6 +28,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     const pageRotateY = useTransform(pageX, input, [45, 0, -45]);
 
     useEffect(() => {
+        window.scrollTo(0, 1);
         if (pageRef.current) {
             closedPageWidthRef.current = pageRef.current.getBoundingClientRect().width;
             //Rerender component to update closedPageWith
