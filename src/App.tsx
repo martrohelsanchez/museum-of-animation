@@ -42,8 +42,13 @@ function App() {
 }
 
 function PrototypeApp() {
+    function handleClick() {
+        console.log('asfasd')
+        document.documentElement.requestFullscreen();
+    }
+
     return (
-        <>
+        <div onClick={handleClick}>
             <Switch>
                 <Route path='/typing'>
                     <Typing />
@@ -96,7 +101,7 @@ function PrototypeApp() {
                     </Link><br />
                 </Route>
             </Switch>
-        </>
+        </div>
     )
 }
 
