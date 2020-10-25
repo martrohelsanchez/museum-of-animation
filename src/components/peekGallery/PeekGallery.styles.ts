@@ -53,4 +53,5 @@ export const Card = styled(motion.div)<{bgColor: string}>`
     height: 100%;
     border-radius: 10px;
     cursor: pointer;
+    will-change: transform;
 `;
