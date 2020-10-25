@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
 export const ListCont = styled(motion.ul)`
-    border: 2px solid turquoise;
     border-radius: 5px;
     padding: 40px;
     width: 90%;
