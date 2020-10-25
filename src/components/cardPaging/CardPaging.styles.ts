@@ -69,4 +69,5 @@ export const Edge = styled(motion.div)`
     height: 94%;
     width: 90%;
     overflow: hidden;
+    border-radius: 50px;
 `;
