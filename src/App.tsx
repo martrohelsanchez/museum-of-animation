@@ -48,7 +48,7 @@ function PrototypeApp() {
     }
 
     return (
-        <div onClick={handleClick}>
+        <>
             <Switch>
                 <Route path='/typing'>
                     <Typing />
@@ -75,33 +75,35 @@ function PrototypeApp() {
                     <CardPaging />
                 </Route>
                 <Route path='/'>
-                    <Link to='/typing' >
-                        Typing
-                    </Link><br />
-                    <Link to='/peek-gallery'>
-                        Peek Gallery
-                    </Link><br />
-                    <Link to='/chat-heads'>
-                        Chatheads
-                    </Link><br />
-                    <Link to='/card-paging'>
-                        Card Paging
-                    </Link><br />
-                    <Link to='/twitter-like' >
-                        An attempt to copy twitter like animation
-                    </Link><br />
-                    <Link to='/toggle-menu'>
-                        Add Message
-                    </Link><br />
-                    <Link to='/list-shuffler'>
-                        List Shuffler
-                    </Link><br />
-                    <Link to='/droplets'>
-                        Droplet
-                    </Link><br />
+                    <div onClick={handleClick}>
+                        <Link to='/typing' >
+                            Typing
+                        </Link><br />
+                        <Link to='/peek-gallery'>
+                            Peek Gallery
+                        </Link><br />
+                        <Link to='/chat-heads'>
+                            Chatheads
+                        </Link><br />
+                        <Link to='/card-paging'>
+                            Card Paging
+                        </Link><br />
+                        <Link to='/twitter-like' >
+                            An attempt to copy twitter like animation
+                        </Link><br />
+                        <Link to='/toggle-menu'>
+                            Add Message
+                        </Link><br />
+                        <Link to='/list-shuffler'>
+                            List Shuffler
+                        </Link><br />
+                        <Link to='/droplets'>
+                            Droplet
+                        </Link><br />
+                    </div>
                 </Route>
             </Switch>
-        </div>
+        </>
     )
 }
 
