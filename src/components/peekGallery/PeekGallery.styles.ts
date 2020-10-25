@@ -3,11 +3,13 @@ import {motion} from 'framer-motion';
 
 import {MobileView as mobileView} from '../../shared/styles';
 
+const bgColor = '#fdba12';
+
 export const Bg = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fdba12;
+    background-color: ${bgColor};
     width: 100vw;
     height: 100vh;
 `;
@@ -16,13 +18,19 @@ export const MobileView = styled(mobileView)`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media all and (max-width: ${({theme}) => theme.mobile}) {
+        & {
+            background-color: ${bgColor};
+        }
+    }
 `;
 
 export const InnerMobileView = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column-reverse;
-    background-color: #fdba12;
+    background-color: ${bgColor};
     width: 92%;
     height: 96%;
     border-radius: 50px;
