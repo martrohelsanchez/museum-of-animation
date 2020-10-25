@@ -8,24 +8,28 @@ const arrDots = [1, 2, 3];
 function Typing() {
     return (
         <S.Bg>
-            <S.TypingBody>
-                {arrDots.map(num => (
-                    <S.Dot 
-                        key={num}
-                        custom={num}
-                        variants={variant}
-                        animate={'typing'}
-                    >
-                    </S.Dot>
-                ))}
-            </S.TypingBody>
+            <S.TypingCont>
+                <S.TypingBody>
+                    <S.DotsCont>
+                        {arrDots.map(num => (
+                            <S.Dot 
+                                key={num}
+                                custom={num}
+                                variants={variant}
+                                animate={'typing'}
+                            >
+                            </S.Dot>
+                        ))}
+                    </S.DotsCont>
+                </S.TypingBody>
+            </S.TypingCont>
         </S.Bg>
     )
 }
 
 const variant: Variants = {
     typing: (i: number) => ({
-        y: [0, -50, 0],
+        y: ['0%', '-90%', '0%'],
         transition: {
             delay: i * 0.15,
             repeat: Infinity,
