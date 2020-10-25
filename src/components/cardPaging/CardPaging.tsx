@@ -1,66 +1,86 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import * as S from './CardPaging.styles';
-import {useMotionValue, useTransform, useAnimation} from 'framer-motion';
+import {useMotionValue, useAnimation, Variants} from 'framer-motion';
+import {PanInfo} from 'framer-motion/types';
+import Page from './Page';
+import {ThemeProvider} from 'styled-components';
+import theme from '../../theme';
 
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging() {
-    const [currPageIndex, setCurrPageIndex] = useState(0);
+    const [count, setCount] = useState(0);
+    const [openedPage, setOpenedPage] = useState<number | null>(null);
     const pageX = useMotionValue(0);
-    const pageScale = useTransform(pageX, [-50, 0, 50], [0.9, 1, 0.9]);
-    const pageScrollRef = useRef<HTMLDivElement>(null!);
-    const pageAnimate = useAnimation();
+    const pageAnimation = useAnimation();
+    const pageY = useMotionValue(0);
+    const cardPagingRef = useRef<HTMLDivElement>(null!);
+    const cardPagingWidthRef = useRef(0);
 
     useEffect(() => {
-        pageX.onChange(x => {
-            const pageScrollWidth = pageScrollRef.current.getBoundingClientRect().width;
-            if (pageX.get() > 100) {
-                setCurrPageIndex(i => ++i);
-            } else if (pageX.get() < -100) {
-                setCurrPageIndex(i => --i);
-            }
-        });
+        cardPagingWidthRef.current = cardPagingRef.current.getBoundingClientRect().width;
+        setCount(c => ++c);
     }, [])
 
-    function onPageScroll(e: React.UIEvent<HTMLDivElement, UIEvent>) {
-        const pageScrollWidth = e.currentTarget.getBoundingClientRect().width;
-
-        // console.log(pageScrollWidth);
-        pageX.set(e.currentTarget.scrollLeft - pageScrollWidth * currPageIndex);
-    }
-
-    function userStopScrolling() {
-    }
-
-    function onTouchEnd(e: React.TouchEvent<HTMLDivElement>) {
-        // userStopScrolling()
+    function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
+        if (info.offset.y > 60 || info.offset.y < -60) {
+            setOpenedPage(null);
+        }
     }
 
     return (
-        <S.CardPaging>
-            <S.MobileView>
-                <S.PageCont
-                    layout
-                    ref={pageScrollRef}
-                    onScroll={onPageScroll}
-                    onTouchEnd={onTouchEnd}
-                    animate={pageAnimate}
+        <ThemeProvider theme={theme}>
+            <S.CardPaging>
+                <S.MobileView
+                    ref={cardPagingRef}
                 >
-                    {colors.map((color, i) => (
-                        <S.Page 
-                            key={color}
-                            bgColor={color}
+                    <S.Edge
+                        animate={openedPage === null ? 'closePage' : 'openPage'}
+                    >
+                        <S.PageCont
+                            variants={pageContVariant}
+                            drag={openedPage === null ? false : 'y'}
+                            onDragEnd={onDragEnd}
+                            dragConstraints={{
+                                top: 0,
+                                bottom: 0
+                            }}
                             style={{
-                                scale: i === currPageIndex ? pageScale : 1
+                                y: pageY
                             }}
                         >
-                        </S.Page>
-                    ))}
-                </S.PageCont>
-            </S.MobileView>
-        </S.CardPaging>
+                            {colors.map((color, i) => (
+                                <Page
+                                    key={color}
+                                    color={color}
+                                    colors={colors}
+                                    i={i}
+                                    pageX={pageX}
+                                    pageY={pageY}
+                                    pageAnimation={pageAnimation}
+                                    openedPage={openedPage}
+                                    setOpenedPage={setOpenedPage}
+                                    cardPagingWidth={cardPagingWidthRef.current}
+                                />
+                            ))}
+                        </S.PageCont>
+                    </S.Edge>
+                </S.MobileView>
+            </S.CardPaging>
+        </ThemeProvider>
     )
+}
+
+const pageContVariant: Variants = {
+    openPage: {
+        height: '100%',
+        width: '100%'
+    },
+    closePage: {
+        width: '70%',
+        height: '50%'
+    }
 }
 
 export default CardPaging;
