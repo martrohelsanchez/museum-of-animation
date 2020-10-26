@@ -1,8 +1,6 @@
 import { Variants } from 'framer-motion';
 import React, { useState } from 'react';
-import {ThemeProvider} from 'styled-components';
 
-import theme from '../../theme';
 import * as S from './PeekGallery.styles';
 
 function PeekGallery() {
@@ -11,31 +9,29 @@ function PeekGallery() {
     const cards = ['white', 'white', 'white'];
 
     return (
-        <ThemeProvider theme={theme}>
-            <S.Bg>
-                <S.MobileView>
-                    <S.InnerMobileView>
-                        <S.CardCont>
-                            {cards.map((num, i) => (
-                                <S.Card
-                                    key={i}
-                                    animate={isOpen ? 'open' : 'close'}
-                                    variants={cardVariant}
-                                    style={{
-                                        perspective: '500px',
-                                        zIndex: cards.length - i
-                                    }}
-                                    onClick={e => setIsOpen(!isOpen)}
-                                    custom={i}
-                                    bgColor={num}
-                                >
-                                </S.Card>
-                            ))}
-                        </S.CardCont>
-                    </S.InnerMobileView>
-                </S.MobileView>
-            </S.Bg>
-        </ThemeProvider>
+        <S.Bg>
+            <S.MobileView>
+                <S.InnerMobileView>
+                    <S.CardCont>
+                        {cards.map((num, i) => (
+                            <S.Card
+                                key={i}
+                                animate={isOpen ? 'open' : 'close'}
+                                variants={cardVariant}
+                                style={{
+                                    perspective: '500px',
+                                    zIndex: cards.length - i
+                                }}
+                                onClick={e => setIsOpen(!isOpen)}
+                                custom={i}
+                                bgColor={num}
+                            >
+                            </S.Card>
+                        ))}
+                    </S.CardCont>
+                </S.InnerMobileView>
+            </S.MobileView>
+        </S.Bg>
     )
 }
 

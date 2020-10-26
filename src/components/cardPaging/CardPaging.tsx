@@ -4,8 +4,6 @@ import * as S from './CardPaging.styles';
 import {useMotionValue, useAnimation, Variants} from 'framer-motion';
 import {PanInfo} from 'framer-motion/types';
 import Page from './Page';
-import {ThemeProvider} from 'styled-components';
-import theme from '../../theme';
 
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
@@ -30,45 +28,43 @@ function CardPaging() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <S.CardPaging>
-                <S.MobileView
-                    ref={cardPagingRef}
+        <S.CardPaging>
+            <S.MobileView
+                ref={cardPagingRef}
+            >
+                <S.Edge
+                    animate={openedPage === null ? 'closePage' : 'openPage'}
                 >
-                    <S.Edge
-                        animate={openedPage === null ? 'closePage' : 'openPage'}
+                    <S.PageCont
+                        variants={pageContVariant}
+                        drag={openedPage === null ? false : 'y'}
+                        onDragEnd={onDragEnd}
+                        dragConstraints={{
+                            top: 0,
+                            bottom: 0
+                        }}
+                        style={{
+                            y: pageY
+                        }}
                     >
-                        <S.PageCont
-                            variants={pageContVariant}
-                            drag={openedPage === null ? false : 'y'}
-                            onDragEnd={onDragEnd}
-                            dragConstraints={{
-                                top: 0,
-                                bottom: 0
-                            }}
-                            style={{
-                                y: pageY
-                            }}
-                        >
-                            {colors.map((color, i) => (
-                                <Page
-                                    key={color}
-                                    color={color}
-                                    colors={colors}
-                                    i={i}
-                                    pageX={pageX}
-                                    pageY={pageY}
-                                    pageAnimation={pageAnimation}
-                                    openedPage={openedPage}
-                                    setOpenedPage={setOpenedPage}
-                                    cardPagingWidth={cardPagingWidthRef.current}
-                                />
-                            ))}
-                        </S.PageCont>
-                    </S.Edge>
-                </S.MobileView>
-            </S.CardPaging>
-        </ThemeProvider>
+                        {colors.map((color, i) => (
+                            <Page
+                                key={color}
+                                color={color}
+                                colors={colors}
+                                i={i}
+                                pageX={pageX}
+                                pageY={pageY}
+                                pageAnimation={pageAnimation}
+                                openedPage={openedPage}
+                                setOpenedPage={setOpenedPage}
+                                cardPagingWidth={cardPagingWidthRef.current}
+                            />
+                        ))}
+                    </S.PageCont>
+                </S.Edge>
+            </S.MobileView>
+        </S.CardPaging>
     )
 }
 
