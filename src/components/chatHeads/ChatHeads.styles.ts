@@ -3,8 +3,8 @@ import {motion} from 'framer-motion';
 
 export const Bg = styled.div`
     background-color: #28abb9;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 `;
 
 export const ChatHead = styled(motion.div)<{color: string}>`

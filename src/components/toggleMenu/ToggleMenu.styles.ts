@@ -10,8 +10,8 @@ export const Bg = styled.div`
     align-items: center;
     justify-content: center;
     background-color: ${bgColor};
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 `;
 
 export const MobileView = styled(mobileView)`
