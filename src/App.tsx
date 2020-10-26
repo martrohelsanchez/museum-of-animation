@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {useViewportScroll} from 'framer-motion';
-import {Switch, Route, Link} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from 'react';
+import {useTransform, useViewportScroll} from 'framer-motion';
+import {ThemeProvider} from 'styled-components';
 
 import * as S from './App.styles';
 import Typing from './components/typing/Typing';
@@ -11,100 +11,73 @@ import ListShuffler from './components/listShuffler/ListShuffler';
 import DropLets from './components/droplets/Dropslets';
 import ChatHead from './components/chatHeads/ChatHeads';
 import CardPaging from './components/cardPaging/CardPaging';
-
-const colors = ['#2d6187', '#effad3', '#a8dda8', '#ff9642', '#ffe05d', '#d9e4dd'];
+import useWindowSize from './hooks/useWindowSize';
+import theme from './theme';
 
 function App() {
-    const scroll = useViewportScroll();
-    const currAnimationIndex = useState(0);
+    const {scrollY} = useViewportScroll();
+    const prevScrollY = useRef(0);
+    const [currentPage, setCurrPage] = useState(0);
+    const scrollTimeout = useRef<number | undefined>(undefined);
 
     useEffect(() => {
-        let prevSection: number | undefined;
-        scroll.scrollY.onChange((y) => {
-            const currSection = Math.floor((y + window.innerHeight) / window.innerHeight);
-
-            if (currSection !== prevSection) {
-                console.log(currSection !== prevSection);
-                console.log(prevSection, currSection);
-                console.log('-----------')
-                prevSection = currSection;
-            }
-        });
+        document.addEventListener('scroll', onScroll);
     }, []);
-    
-    return (
-        <>
-            {colors.map(colors => (
-                <S.Section key={colors} bgColor={colors}></S.Section>
-            ))}
-        </>
-    )
-}
 
-function PrototypeApp() {
-    function handleClick() {
-        console.log('asfasd')
-        document.documentElement.requestFullscreen();
+    function onScroll(e: Event) {
+        clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = setTimeout(() => {
+            scrollTimeout.current = undefined;
+            snap();
+        }, 500);
     }
 
+    function snap() {
+        const currFullPage = scrollY.get() / window.innerHeight;
+        const scrollDir = scrollY.get() - prevScrollY.current > 0 ? 'down' : 'up';
+        let targetPage: number;
+
+        if (scrollDir === 'up') {
+            targetPage = getTargetPage(currFullPage, 0.80);
+        } else {
+            targetPage = getTargetPage(currFullPage, 0.20);
+        }
+
+        window.scroll({
+            top: targetPage * window.innerHeight,
+            behavior: "smooth"
+        });
+        prevScrollY.current = targetPage * window.innerHeight;
+        setCurrPage(targetPage);
+    }
+
+    function getTargetPage(currFullPage: number , percOfCurrFullPage: number) {
+        const decimalPart = currFullPage % 1;
+
+        if (decimalPart > percOfCurrFullPage) {
+            return Math.ceil(currFullPage);
+        } else {
+            return Math.floor(currFullPage);
+        }
+    }
+
+    const windowSize = useWindowSize();
+    const originPageY = currentPage * windowSize.height;
+    const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
+    const animations = [PeekGallery, CardPaging, ToggleMenu, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
+
     return (
-        <>
-            <Switch>
-                <Route path='/typing'>
-                    <Typing />
-                </Route>
-                <Route path='/twitter-like'>
-                    <TwitterLike />
-                </Route>
-                <Route path='/toggle-menu'>
-                    <ToggleMenu />
-                </Route>
-                <Route path='/peek-gallery'>
-                    <PeekGallery />
-                </Route>
-                <Route path='/list-shuffler'>
-                    <ListShuffler />
-                </Route>
-                <Route path='/droplets'>
-                    <DropLets />
-                </Route>
-                <Route path='/chat-heads'>
-                    <ChatHead />
-                </Route>
-                <Route path='/card-paging'>
-                    <CardPaging />
-                </Route>
-                <Route path='/'>
-                    <div onClick={handleClick}>
-                        <Link to='/typing' >
-                            Typing
-                        </Link><br />
-                        <Link to='/peek-gallery'>
-                            Peek Gallery
-                        </Link><br />
-                        <Link to='/chat-heads'>
-                            Chatheads
-                        </Link><br />
-                        <Link to='/card-paging'>
-                            Card Paging
-                        </Link><br />
-                        <Link to='/twitter-like' >
-                            An attempt to copy twitter like animation
-                        </Link><br />
-                        <Link to='/toggle-menu'>
-                            Add Message
-                        </Link><br />
-                        <Link to='/list-shuffler'>
-                            List Shuffler
-                        </Link><br />
-                        <Link to='/droplets'>
-                            Droplet
-                        </Link><br />
-                    </div>
-                </Route>
-            </Switch>
-        </>
+        <ThemeProvider theme={theme}>
+            {animations.map(Animation => (
+                <S.Section
+                    style={{
+                        scale
+                    }}
+                >
+                    <Animation />
+                </S.Section>
+            ))}
+        </ThemeProvider>
     )
 }
-
-export default PrototypeApp;
+export default App;
