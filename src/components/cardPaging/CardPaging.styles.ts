@@ -66,8 +66,8 @@ export const Edge = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 94%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
     border-radius: 50px;
 `;

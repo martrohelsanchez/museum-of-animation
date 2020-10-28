@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
+export const Cont = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+`;
+
 export const ListCont = styled(motion.ul)`
     border-radius: 5px;
     padding: 40px;
     width: 90%;
     max-width: 500px;
     margin: 0 auto;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Raleway', sans-serif;
     cursor: pointer;
 `;
 
@@ -16,8 +24,9 @@ export const List = styled(motion.li)<{num: number}>`
     font-size: 200%;
     color: white;
     text-align: center;
-    padding: 5px;
-    margin: 3px 0;
+    padding: 20px 0;
+    margin: 10px 0;
+    border-radius: 10px;
     background-color: ${({num: key}) => {
         switch(key) {
             case 0:
@@ -34,12 +43,4 @@ export const List = styled(motion.li)<{num: number}>`
                 return '#835858';
         }
     }};
-`;
-
-export const Cont = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
 `;

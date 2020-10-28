@@ -111,7 +111,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
             onDragEnd={onDragEnd}
             onClick={pageOnClick}
             variants={pageWrapper}
-            custom={openedPage === null ? closedPageWidth : [cardPagingWidth * 0.90, openedPage]}
+            custom={openedPage === null ? closedPageWidth : [cardPagingWidth - 20, openedPage]}
         >
             <S.Page
                 bgColor={color}

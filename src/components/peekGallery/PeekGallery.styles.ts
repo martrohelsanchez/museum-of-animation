@@ -31,8 +31,8 @@ export const InnerMobileView = styled.div`
     align-items: center;
     flex-direction: column-reverse;
     background-color: ${bgColor};
-    width: 92%;
-    height: 96%;
+    width: 100%;
+    height: 100%;
     border-radius: 50px;
     padding: 40px;
     box-sizing: border-box;
