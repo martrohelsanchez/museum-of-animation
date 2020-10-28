@@ -2,38 +2,40 @@ import React, { useState } from 'react';
 
 import * as S from './ListShuffler.style';
 
+const data = [
+  {
+    num: 0,
+    content: 'Zero'
+  },
+  {
+    num: 1,
+    content: 'One'
+  },
+  {
+    num: 2,
+    content: 'Two'
+  },
+  {
+    num: 3,
+    content: 'Three'
+  },
+  {
+    num: 4,
+    content: 'Four'
+  },
+  {
+    num: 5,
+    content: 'Five'
+  }
+];
+
 function App() {
   const spring = {
     type: "spring",
     stiffness: 700,
     damping: 30
   };
-  const [list, setList] = useState([
-    {
-      num: 0,
-      content: 'Zero'
-    },
-    {
-      num: 1,
-      content: 'One'
-    },
-    {
-      num: 2,
-      content: 'Two'
-    },
-    {
-      num: 3,
-      content: 'Three'
-    },
-    {
-      num: 4,
-      content: 'Four'
-    },
-    {
-      num: 5,
-      content: 'Five'
-    }
-  ]);
+  const [list, setList] = useState(data);
 
 
   function handleSwitch() {
