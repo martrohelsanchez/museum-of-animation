@@ -5,7 +5,7 @@ import {ThemeProvider} from 'styled-components';
 import * as S from './App.styles';
 import Typing from './components/typing/Typing';
 import TwitterLike from './components/twitterLike/TwitterLike';
-import ToggleMenu from './components/toggleMenu/ToggleMenu';
+import AddMsg from './components/addMsg/AddMsg';
 import PeekGallery from './components/peekGallery/PeekGallery';
 import ListShuffler from './components/listShuffler/ListShuffler';
 import DropLets from './components/droplets/Dropslets';
@@ -13,6 +13,8 @@ import ChatHead from './components/chatHeads/ChatHeads';
 import CardPaging from './components/cardPaging/CardPaging';
 import useWindowSize from './hooks/useWindowSize';
 import theme from './theme';
+import CardRotate from './components/cardRotate/CardRotate';
+import OnBoardingScreen from './components/onBoardingScreen/OnBoardingScreen';
 
 function App() {
     const {scrollY} = useViewportScroll();
@@ -29,7 +31,7 @@ function App() {
         scrollTimeout.current = setTimeout(() => {
             scrollTimeout.current = undefined;
             snap();
-        }, 500);
+        }, 50);
     }
 
     function snap() {
@@ -64,12 +66,13 @@ function App() {
     const windowSize = useWindowSize();
     const originPageY = currentPage * windowSize.height;
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
-    const animations = [PeekGallery, CardPaging, ToggleMenu, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
+    const animations = [OnBoardingScreen, CardRotate, PeekGallery, CardPaging, AddMsg, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
 
     return (
         <ThemeProvider theme={theme}>
-            {animations.map(Animation => (
+            {animations.map((Animation, i) => (
                 <S.Section
+                    key={i}
                     style={{
                         scale
                     }}
