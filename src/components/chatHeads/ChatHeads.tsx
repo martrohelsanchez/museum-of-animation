@@ -19,7 +19,6 @@ function ChatHead() {
     return (
         <S.Bg onMouseMove={onMouseMove}>
             {colors.map((color, i) => {
-                console.log((colors.length - i) * 0.1)
                 return (
                     <S.ChatHead
                         color={color}
