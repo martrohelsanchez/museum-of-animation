@@ -5,7 +5,6 @@ import * as S from './PeekGallery.styles';
 
 function PeekGallery() {
     const [isOpen, setIsOpen] = useState(false);
-    // const cards = ['#7579e7', '#cee397', '#1f6f8b'];
     const cards = ['white', 'white', 'white'];
 
     return (
@@ -41,11 +40,11 @@ const cardVariant: Variants = {
         y: -(index * 50),
         boxShadow: '0 -5px 30px rgba(0, 0, 0, 0.08)'
     }),
-    close: (index) => ({
+    close: {
         rotateX: 0,
         y: 0,
         boxShadow: 'none'
-    })
+    }
 }
 
 export default PeekGallery;
