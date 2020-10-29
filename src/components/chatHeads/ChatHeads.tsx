@@ -15,11 +15,11 @@ function ChatHead() {
     const windowSize = useWindowSize();
     const mousePos = useAnimation();
 
-    function onMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) {
+    function onDragStart(e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) {
         bgRef.current.addEventListener('mousemove', onDragging);
         bgRef.current.addEventListener('touchmove', onDragging)
-        window.addEventListener('mouseup', onMouseUp)
-        window.addEventListener('touchend', onMouseUp);
+        window.addEventListener('mouseup', onDragEnd)
+        window.addEventListener('touchend', onDragEnd);
     }
 
     function onDragging(e: MouseEvent | TouchEvent) {
@@ -29,7 +29,7 @@ function ChatHead() {
         });
     }
 
-    function onMouseUp(e: MouseEvent | TouchEvent) {
+    function onDragEnd(e: MouseEvent | TouchEvent) {
         bgRef.current.removeEventListener('mousemove', onDragging);
         bgRef.current.removeEventListener('touchmove', onDragging)
         console.log(e);
@@ -63,8 +63,8 @@ function ChatHead() {
                         }}
                         drag={i === images.length - 1 ? true : false}
                         dragMomentum={false}
-                        onMouseDown={onMouseDown}
-                        onTouchStart={onMouseDown}
+                        onMouseDown={onDragStart}
+                        onTouchStart={onDragStart}
                     >
                         <S.UserImg 
                             style={{
