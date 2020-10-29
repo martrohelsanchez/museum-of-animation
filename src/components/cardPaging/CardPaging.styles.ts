@@ -29,6 +29,10 @@ export const PageCont = styled(motion.div)`
     &::-webkit-scrollbar {
         display: none;
     }
+
+    &:active {
+        cursor: grabbing;
+    }
 `;
 
 export const Carousel = styled.div`

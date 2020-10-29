@@ -18,6 +18,10 @@ export const ChatHead = styled(motion.div)`
     border-radius: 50%;
     cursor: grab;
     touch-action: none;
+
+    &:active {
+        cursor: grabbing;
+    }
 `
 
 export const UserImg = styled.img`
