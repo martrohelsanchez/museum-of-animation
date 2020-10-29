@@ -1,35 +1,78 @@
-import React, { useState } from 'react';
+import React, {useRef} from 'react';
 import {useAnimation} from 'framer-motion';
 
 import * as S from './ChatHeads.styles';
+import useWindowSize from '../../hooks/useWindowSize';
+import ashley from '../../images/ashley.jpg';
+import barbie from '../../images/barbie.jpg';
+import kathryn from '../../images/kathryn.jpg';
+import thea from '../../images/thea.jpg';
 
-const colors = ['#2d6187', '#effad3', '#a8dda8', '#ff9642', '#ffe05d', '#d9e4dd'];
+const images = [kathryn, thea, barbie, ashley, 'transparent'];
 
 function ChatHead() {
+    const bgRef = useRef<HTMLDivElement>(null!);
+    const windowSize = useWindowSize();
     const mousePos = useAnimation();
-    const pos = useState({x: 0, y: 0});
 
-    async function onMouseMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    function onMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) {
+        bgRef.current.addEventListener('mousemove', onDragging);
+        bgRef.current.addEventListener('touchmove', onDragging)
+        window.addEventListener('mouseup', onMouseUp)
+        window.addEventListener('touchend', onMouseUp);
+    }
+
+    function onDragging(e: MouseEvent | TouchEvent) {
         mousePos.start({
-            x: e.clientX - 30,
-            y: e.clientY - 30
+            x: 'clientX' in e ? e.clientX - 30 : e.touches[0].clientX - 30,
+            y: 'clientY' in e ? e.clientY - 30 : e.touches[0].clientY - 30
         });
+    }
+
+    function onMouseUp(e: MouseEvent | TouchEvent) {
+        bgRef.current.removeEventListener('mousemove', onDragging);
+        bgRef.current.removeEventListener('touchmove', onDragging)
+        console.log(e);
+        const lastPosX = 'clientX' in e ? e.clientX : e.changedTouches[0].clientX;
+
+        if (lastPosX > windowSize.width / 2) {
+            mousePos.start({
+                x: windowSize.width - 80
+            });
+        } else {
+            mousePos.start({
+                x: 0
+            });
+        }
     }
     
     return (
-        <S.Bg onMouseMove={onMouseMove}>
-            {colors.map((color, i) => {
+        <S.Bg ref={bgRef}>
+            {images.map((userImg, i) => {
                 return (
                     <S.ChatHead
-                        color={color}
-                        animate={mousePos}
+                        animate={i === images.length - 1 ? undefined : mousePos}
                         transition={{
                             type: 'spring',
                             bounce: 0,
-                            mass: (colors.length - i) * .5,
+                            mass: ((images.length - 1) - i) * .5,
                             damping: 15
                         }}
+                        style={{
+                            backgroundColor: i === images.length - 1 ? 'transparent' : 'white'
+                        }}
+                        drag={i === images.length - 1 ? true : false}
+                        dragMomentum={false}
+                        onMouseDown={onMouseDown}
+                        onTouchStart={onMouseDown}
                     >
+                        <S.UserImg 
+                            style={{
+                                display: i === images.length - 1 ? 'none' : 'inline-block'
+                            }} 
+                            src={userImg} 
+                            draggable={false}
+                        />
                     </S.ChatHead>
                 )
             })}
