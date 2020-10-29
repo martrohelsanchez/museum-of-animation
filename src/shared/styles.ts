@@ -13,6 +13,7 @@ export const MobileView = styled.div`
         & {
             border-radius: 0;
             height: 100%;
+            max-height: 100%;
             width: 100%;
         }
     }
