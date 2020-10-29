@@ -14,13 +14,15 @@ import CardPaging from './components/cardPaging/CardPaging';
 import useWindowSize from './hooks/useWindowSize';
 import theme from './theme';
 import CardRotate from './components/cardRotate/CardRotate';
-import OnBoardingScreen from './components/onBoardingScreen/OnBoardingScreen';
+import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
 
 function App() {
     const {scrollY} = useViewportScroll();
     const prevScrollY = useRef(0);
     const [currentPage, setCurrPage] = useState(0);
     const scrollTimeout = useRef<number | undefined>(undefined);
+
+    console.log(scrollY);
 
     useEffect(() => {
         document.addEventListener('scroll', onScroll);
@@ -31,7 +33,7 @@ function App() {
         scrollTimeout.current = setTimeout(() => {
             scrollTimeout.current = undefined;
             snap();
-        }, 50);
+        }, 100);
     }
 
     function snap() {
