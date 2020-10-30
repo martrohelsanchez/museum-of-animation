@@ -15,14 +15,13 @@ import useWindowSize from './hooks/useWindowSize';
 import theme from './theme';
 import CardRotate from './components/cardRotate/CardRotate';
 import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
+import Space from './components/space/Space';
 
 function App() {
     const {scrollY} = useViewportScroll();
     const prevScrollY = useRef(0);
     const [currentPage, setCurrPage] = useState(0);
     const scrollTimeout = useRef<number | undefined>(undefined);
-
-    console.log(scrollY);
 
     useEffect(() => {
         document.addEventListener('scroll', onScroll);
@@ -68,7 +67,7 @@ function App() {
     const windowSize = useWindowSize();
     const originPageY = currentPage * windowSize.height;
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
-    const animations = [OnBoardingScreen, CardRotate, PeekGallery, CardPaging, AddMsg, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
+    const animations = [Space, OnBoardingScreen, CardRotate, PeekGallery, CardPaging, AddMsg, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
 
     return (
         <ThemeProvider theme={theme}>
