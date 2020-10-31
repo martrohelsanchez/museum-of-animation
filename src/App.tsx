@@ -16,6 +16,7 @@ import theme from './theme';
 import CardRotate from './components/cardRotate/CardRotate';
 import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
 import Space from './components/space/Space';
+import SpreadCards from './components/spreadCards/SpreadCards'
 
 function App() {
     const {scrollY} = useViewportScroll();
@@ -67,7 +68,20 @@ function App() {
     const windowSize = useWindowSize();
     const originPageY = currentPage * windowSize.height;
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
-    const animations = [Space, OnBoardingScreen, CardRotate, PeekGallery, CardPaging, AddMsg, ChatHead, Typing, ListShuffler, TwitterLike, DropLets];
+    const animations = [
+        SpreadCards, 
+        Space, 
+        OnBoardingScreen, 
+        CardRotate, 
+        PeekGallery, 
+        CardPaging, 
+        AddMsg, 
+        ChatHead, 
+        Typing, 
+        ListShuffler, 
+        TwitterLike, 
+        DropLets
+    ];
 
     return (
         <ThemeProvider theme={theme}>
