@@ -25,6 +25,7 @@ function Space() {
                 const dimension = getRandomInt(2, 10);
                 return (
                     <S.Particle
+                        key={i}
                         style={{
                             left: getRandomInt(0, windowSize.width),
                             top: getRandomInt(0, windowSize.height),
@@ -38,7 +39,7 @@ function Space() {
                             mass: 10,
                             bounce: 0,
                             damping: 30,
-                            stiffness: 50
+                            stiffness: 60
                         }}
                     >
                     </S.Particle>
