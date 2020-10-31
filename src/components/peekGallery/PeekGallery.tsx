@@ -38,12 +38,12 @@ const cardVariant: Variants = {
     open: (index) => ({
         rotateX: -25,
         y: -(index * 50),
-        boxShadow: '0 -5px 30px rgba(0, 0, 0, 0.08)'
+        boxShadow: '0px -10px 40px -5px rgba(0, 0, 0, 0.1)'
     }),
     close: {
         rotateX: 0,
         y: 0,
-        boxShadow: 'none'
+        boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0)'
     }
 }
 
