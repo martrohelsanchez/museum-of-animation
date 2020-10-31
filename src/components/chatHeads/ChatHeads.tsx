@@ -51,6 +51,7 @@ function ChatHead() {
             {images.map((userImg, i) => {
                 return (
                     <S.ChatHead
+                        key={i}
                         animate={i === images.length - 1 ? undefined : mousePos}
                         transition={{
                             type: 'spring',
