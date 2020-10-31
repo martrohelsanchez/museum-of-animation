@@ -18,6 +18,7 @@ export const ChatHead = styled(motion.div)`
     border-radius: 50%;
     cursor: grab;
     touch-action: none;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 
     &:active {
         cursor: grabbing;
