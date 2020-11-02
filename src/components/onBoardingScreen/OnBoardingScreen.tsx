@@ -5,7 +5,7 @@ import React, {useState, useRef} from 'react';
 import * as S from './OnboardingScreen.styles';
 import useWindowSize from '../../hooks/useWindowSize';
 
-const pageBgColor = ['#db6400', '#bedbbb', '#edc988', '#fcdada', '#d9ecf2'];
+const pageBgColor = ['#db6400', '#bedbbb', '#734046', '#fcdada', '#bedbbb'];
 
 function OnBoardingScreen() {
     const windowSize = useWindowSize();
