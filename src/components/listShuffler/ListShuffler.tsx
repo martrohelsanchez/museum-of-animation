@@ -29,12 +29,13 @@ const data = [
   }
 ];
 
+const spring = {
+  type: "spring",
+  stiffness: 100,
+  damping: 15
+};
+
 function App() {
-  const spring = {
-    type: "spring",
-    stiffness: 700,
-    damping: 30
-  };
   const [list, setList] = useState(data);
 
 
