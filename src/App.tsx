@@ -72,17 +72,16 @@ function App() {
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
     const animations = [
         ChristmasCard,
+        CardPaging, 
+        PeekGallery, 
+        AddMsg, 
         Calendar,
         SpreadCards, 
         Space, 
         OnBoardingScreen, 
-        CardRotate,
-        PeekGallery, 
-        CardPaging, 
-        AddMsg, 
         ChatHead, 
-        Typing, 
         ListShuffler, 
+        Typing, 
         TwitterLike, 
         DropLets
     ];
