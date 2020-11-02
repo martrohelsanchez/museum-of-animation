@@ -24,8 +24,6 @@ function SpreadCards() {
             <S.CardCont
                 style={{
                     rotateX: 35,
-                    rotateY: 20,
-                    rotate: -20,
                     perspective: 900,
                 }}
             >
@@ -52,15 +50,24 @@ const cardVariant: Variants = {
     spread: i => ({
         x: `${getPart(250, cards.length + 1, i + 1) - 125}%`,
         rotate: getPart(80, cards.length - 1, i) - 40,
-        // y: `${getPart(20, cards.length - 1, i) - 10}%`
-        boxShadow: '-1px -1px 100px -20px rgba(0, 0, 0, .1), 1px 1px 100px -20px rgba(0, 0, 0, .1)'
+        boxShadow: '0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3)',
+        transition: {
+            type: 'spring',
+            stiffness: 150,
+            mass: 2,
+            damping: 15
+        }
     }),
     notSpread: i => ({
         rotate: -40,
-        x: `${getPart(250, cards.length + 1, cards.length) - 125}%`,
-        // boxShadow: '-1px -1px 80px -30px rgba(0, 0, 0, .01), 1px 1px 80px -30px rgba(0, 0, 0, .01)'
-        // boxShadow: '0 0 80px -30px rgba(0, 0, 0, .01)'
-        // x: '-75%'
+        x: `${(getPart(250, cards.length + 1, cards.length) - 125) - i * 1.5}%`,
+        boxShadow: '0 5px 5px 1px rgba(50, 50, 73, 0.1), 0 5px 5px 1px rgba(50, 50, 73, 0.1)',
+        transition: {
+            type: 'spring',
+            mass: 2.5,
+            damping: 20,
+            restDelta: 0.001
+        }
     })
 }
 
