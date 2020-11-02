@@ -32,7 +32,6 @@ function ChatHead() {
     function onDragEnd(e: MouseEvent | TouchEvent) {
         bgRef.current.removeEventListener('mousemove', onDragging);
         bgRef.current.removeEventListener('touchmove', onDragging)
-        console.log(e);
         const lastPosX = 'clientX' in e ? e.clientX : e.changedTouches[0].clientX;
 
         if (lastPosX > windowSize.width / 2) {
