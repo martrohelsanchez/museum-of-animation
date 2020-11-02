@@ -17,6 +17,8 @@ import CardRotate from './components/cardRotate/CardRotate';
 import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
 import Space from './components/space/Space';
 import SpreadCards from './components/spreadCards/SpreadCards'
+import Calendar from './components/calendar/Calendar';
+import ChristmasCard from './components/christmasCard/ChristmasCard';
 
 function App() {
     const {scrollY} = useViewportScroll();
@@ -33,7 +35,7 @@ function App() {
         scrollTimeout.current = setTimeout(() => {
             scrollTimeout.current = undefined;
             snap();
-        }, 100);
+        }, 500);
     }
 
     function snap() {
@@ -69,10 +71,12 @@ function App() {
     const originPageY = currentPage * windowSize.height;
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
     const animations = [
+        ChristmasCard,
+        Calendar,
         SpreadCards, 
         Space, 
         OnBoardingScreen, 
-        CardRotate, 
+        CardRotate,
         PeekGallery, 
         CardPaging, 
         AddMsg, 
@@ -89,7 +93,8 @@ function App() {
                 <S.Section
                     key={i}
                     style={{
-                        scale
+                        scale,
+                        zIndex: 1
                     }}
                 >
                     <Animation />
