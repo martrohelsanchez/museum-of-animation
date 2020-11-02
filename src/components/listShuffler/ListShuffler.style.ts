@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {Bg, CenterHorVer} from '../../shared/styles';
 
-export const Cont = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+export const Cont = styled(Bg)`
+    ${CenterHorVer};
+    background-color: white;
 `;
 
 export const ListCont = styled(motion.ul)`
@@ -27,6 +25,7 @@ export const List = styled(motion.li)<{num: number}>`
     padding: 20px 0;
     margin: 10px 0;
     border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(50, 50, 73, 0.5);
     background-color: ${({num: key}) => {
         switch(key) {
             case 0:

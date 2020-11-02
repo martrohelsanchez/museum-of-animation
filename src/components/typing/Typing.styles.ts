@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-export const Bg = styled.div`
-    display: flex;
+import {Bg as bg, CenterHorVer} from '../../shared/styles';
+
+export const Bg = styled(bg)`
+    ${CenterHorVer};
     background-color: #003a47;   
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
 `;
 
 export const TypingBody = styled.div`

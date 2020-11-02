@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {Bg as bg} from '../../shared/styles';
 
-export const Bg = styled.div`
+export const Bg = styled(bg)`
     background-color: #2c2e33;
     position: relative;
-    height: 100%;
-    width: 100%;
 `;
 
 export const Particle = styled(motion.div)`

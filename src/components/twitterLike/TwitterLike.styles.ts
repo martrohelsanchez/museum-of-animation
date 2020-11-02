@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
+import {ParentSize, CenterHorVer} from '../../shared/styles';
+
 export const Heart = styled(motion.path)``;
 
 export const Svg = styled(motion.svg)`
@@ -12,18 +14,16 @@ export const Svg = styled(motion.svg)`
 `;
 
 export const TwitterLike = styled(motion.div)`
+    ${ParentSize};
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    background-color: white;
 `;
 
 export const WaveOuter = styled(motion.div)`
+    ${CenterHorVer};
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #bb90c2;
     height: 160px;
     width: 160px;
@@ -39,8 +39,6 @@ export const WaveInner = styled(motion.div)`
 `;
 
 export const LikeCont = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${CenterHorVer};
     position: relative;  
 `;

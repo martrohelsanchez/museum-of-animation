@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {Bg as bg, CenterHorVer} from '../../shared/styles';
 
-export const Bg = styled.div`
+export const Bg = styled(bg)`
     background-color: #28abb9;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+
 `;
 
 export const ChatHead = styled(motion.div)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${CenterHorVer};
     position: absolute;
     height: 60px;
     width: 60px;

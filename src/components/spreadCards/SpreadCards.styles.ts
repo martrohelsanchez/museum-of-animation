@@ -1,31 +1,29 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {Bg as bg, CenterHorVer, ParentSize} from '../../shared/styles';
 
-export const Bg = styled.div`
+export const Bg = styled(bg)`
+    ${CenterHorVer};
     background-color: #f4f6ff;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 
 export const CardCont = styled(motion.div)`
     position: relative;
-    height: 450px;
-    width: 300px;
+    padding-top: min(50%, 450px);
+    width: 28%;
+    max-width: 300px;
 `;
 
 export const Card = styled(motion.div)`
+    ${ParentSize};
     position: absolute;
+    top: 0;
+    left: 0;
     background-color: white;
     border-radius: 10px;
-    height: 100%;
-    width: 100%;
     cursor: pointer;
     background-size: auto 90%;
-    /* background-size: 95% auto; */
     background-repeat: no-repeat;
     background-position: center center;
+    will-change: transform;
 `;
