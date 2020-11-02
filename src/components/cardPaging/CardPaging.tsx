@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 
-import * as S from './CardPaging.styles';
+import * as S from './cardPaging.styles';
 import {useMotionValue, useAnimation, Variants} from 'framer-motion';
 import {PanInfo} from 'framer-motion/types';
 import Page from './Page';
