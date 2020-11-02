@@ -59,7 +59,8 @@ function ChatHead() {
                             damping: 15
                         }}
                         style={{
-                            backgroundColor: i === images.length - 1 ? 'transparent' : 'white'
+                            backgroundColor: i === images.length - 1 ? 'transparent' : 'white',
+                            boxShadow: i === images.length - 1 ? 'none' : '0px 0px 20px rgba(0, 0, 0, 0.1)'
                         }}
                         drag={i === images.length - 1 ? true : false}
                         dragMomentum={false}
