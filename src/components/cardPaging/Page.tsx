@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import {MotionValue, PanInfo, AnimationControls, Variants} from 'framer-motion/types';
 import {useTransform} from 'framer-motion';
 
-import * as S from './cardPaging.styles';
+import * as S from './CardPaging.styles';
 
 interface CardProps {
     color: string;
