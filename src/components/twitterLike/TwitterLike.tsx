@@ -60,7 +60,8 @@ const HeartSvgVariant: Variants = {
             bounce: 200,
             damping: 5,
             stiffness: 250,
-            delay: .1
+            delay: .1,
+            restDelta: 0.001
         }
     },
     notLiked: {
