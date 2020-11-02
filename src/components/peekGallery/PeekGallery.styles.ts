@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {MobileView as mobileView, ParentSize} from '../../shared/styles';
-import {Bg as bg, CenterHorVer} from '../../shared/styles';
+import {MobileView as mobileView, ParentSize, Bg as bg, CenterHorVer} from '../../shared/styles';
 
 const bgColor = '#fdba12';
 
@@ -39,7 +38,7 @@ export const CardCont = styled.div`
 `;
 
 export const Card = styled(motion.div)<{bgColor: string}>`
-    ${CenterHorVer};
+    ${ParentSize};
     background-color: ${({bgColor}) => bgColor};
     position: absolute;
     top: 0;
