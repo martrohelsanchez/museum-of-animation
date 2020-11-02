@@ -1,6 +1,6 @@
+import React, {useState, useRef} from 'react';
 import {useAnimation, useMotionValue, useTransform, motion} from 'framer-motion';
 import {PanInfo} from 'framer-motion/types';
-import React, {useState, useRef} from 'react';
 
 import * as S from './OnboardingScreen.styles';
 import useWindowSize from '../../hooks/useWindowSize';
