@@ -1,23 +1,18 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {MobileView as mobileView} from '../../shared/styles';
+import {MobileView as mobileView, ParentSize} from '../../shared/styles';
+import {Bg as bg, CenterHorVer} from '../../shared/styles';
 
 const bgColor = '#fdba12';
 
-export const Bg = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+export const Bg = styled(bg)`
+    ${CenterHorVer};
     background-color: ${bgColor};
-    width: 100%;
-    height: 100%;
 `;
 
 export const MobileView = styled(mobileView)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${CenterHorVer};
 
     @media all and (max-width: ${({theme}) => theme.mobile}) {
         & {
@@ -27,12 +22,11 @@ export const MobileView = styled(mobileView)`
 `;
 
 export const InnerMobileView = styled.div`
+    ${ParentSize};
     display: flex;
     align-items: center;
     flex-direction: column-reverse;
     background-color: ${bgColor};
-    width: 100%;
-    height: 100%;
     border-radius: 50px;
     padding: 40px;
     box-sizing: border-box;
@@ -45,12 +39,11 @@ export const CardCont = styled.div`
 `;
 
 export const Card = styled(motion.div)<{bgColor: string}>`
+    ${CenterHorVer};
     background-color: ${({bgColor}) => bgColor};
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
     border-radius: 10px;
     cursor: pointer;
     will-change: transform;
