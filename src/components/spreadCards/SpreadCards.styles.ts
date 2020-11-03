@@ -25,5 +25,5 @@ export const Card = styled(motion.div)`
     background-size: auto 90%;
     background-repeat: no-repeat;
     background-position: center center;
-    will-change: transform;
+    will-change: box-shadow;
 `;

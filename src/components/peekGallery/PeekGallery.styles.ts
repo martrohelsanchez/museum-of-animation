@@ -45,5 +45,5 @@ export const Card = styled(motion.div)<{bgColor: string}>`
     bottom: 0;
     border-radius: 10px;
     cursor: pointer;
-    will-change: transform;
+    will-change: box-shadow;
 `;
