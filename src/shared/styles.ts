@@ -19,6 +19,12 @@ export const MobileView = styled.div`
     }
 `;
 
+//Child elements must have property position: absolute;
+export const StackElements = styled.div`
+    position: relative;
+    background-color: transparent;
+`;
+
 export const Bg = styled.div`
     height: 100%;
     width: 100%;
