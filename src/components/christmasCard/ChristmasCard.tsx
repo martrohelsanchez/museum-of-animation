@@ -131,23 +131,19 @@ function ChristmasCard() {
 
 const cardLeftBackVariant: Variants = {
     close: {
-        rotateX: 10,
-        zIndex: 5
+        rotateX: 10
     },
     open: {
-        rotateX: 180,
-        zIndex: 4
+        rotateX: 180
     }
 }
 
 const cardLeftFrontVariant: Variants = {
     close: {
-        rotateX: 10,
-        zIndex: 4
+        rotateX: 10
     },
     open: {
-        rotateX: 180,
-        zIndex: 5
+        rotateX: 180
     }
 }
 
