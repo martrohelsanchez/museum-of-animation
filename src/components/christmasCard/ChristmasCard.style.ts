@@ -12,8 +12,9 @@ export const Bg = styled(bg)`
 
 export const StackElements = styled(stackElements)`
     ${CenterHorVer};
-    width: 588px;
-    height: 385px;
+    width: 60%;
+    max-width: 588px;
+    padding-top: min(38.82%, 385px);
 `;
 
 export const StackCards = styled(stackElements)`
@@ -52,8 +53,7 @@ export const Pampahaba = styled.div`
 
 export const CardCont = styled(motion.div)`
     position: absolute;
-    top: 20px;
-    background-color: black;
+    top: 5%;
     width: 90%;
     height: 90%;
     z-index: 4;
@@ -69,6 +69,7 @@ const Card = styled(motion.img)`
 `;
 
 export const CardLeftBack = styled(Card)`
+    backface-visibility: hidden;
     z-index: 5;
 `;
 
