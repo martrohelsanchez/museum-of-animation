@@ -4,12 +4,14 @@ import {Bg as bg, CenterHorVer} from '../../shared/styles';
 
 export const Bg = styled(bg)`
     background-color: #28abb9;
-
+    position: relative;
 `;
 
 export const ChatHead = styled(motion.div)`
     ${CenterHorVer};
     position: absolute;
+    top: 0;
+    left: 0;
     height: 60px;
     width: 60px;
     border-radius: 50%;
