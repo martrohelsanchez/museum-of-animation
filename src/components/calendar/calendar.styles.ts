@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {Bg as bg, CenterHorVer, ParentSize} from '../../shared/styles';
+import {Bg as bg, centerHorVer, parentsize} from '../../shared/styles';
 
 const shadowColor = 'rgba(50, 50, 73, 0.1)';
 
 export const Bg = styled(bg)`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: #fff8cd;
 `;
 
@@ -39,7 +39,7 @@ export const TopGrey = styled.div`
 `;
 
 export const Page = styled(motion.div)`
-    ${ParentSize};
+    ${parentsize};
     position: absolute;
     top: 0;
     background-color: white;
@@ -55,23 +55,21 @@ export const Shadow = styled(Page)`
     box-shadow: 5px 10px 10px ${shadowColor};
 `;
 
-export const Grabber = styled(motion.div)`
-    ${ParentSize};
+export const Cont = styled(motion.div)`
+    ${parentsize};
     position: absolute;
     background-color: transparent;
 `;
 
-export const Cont = styled(Grabber)`
-    position: absolute;
-`;
+export const Grabber = styled(Cont)``;
 
-export const StackElements = styled(Grabber)`
-    ${CenterHorVer};
+export const StackElements = styled(Cont)`
+    ${centerHorVer};
     position: relative;
 `;
 
 export const Content = styled.div`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: crimson;
     top: 0;
     color: white;

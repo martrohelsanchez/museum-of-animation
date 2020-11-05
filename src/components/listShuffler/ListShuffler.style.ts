@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import {Bg, CenterHorVer} from '../../shared/styles';
+import {Bg, centerHorVer} from '../../shared/styles';
 
 export const Cont = styled(Bg)`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: white;
 `;
 

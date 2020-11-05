@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
-import {Bg as bg, CenterHorVer, StackElements as stackElements, ParentSize} from '../../shared/styles';
+import {Bg as bg, centerHorVer, StackElements as stackElements, parentsize} from '../../shared/styles';
 import {motion} from 'framer-motion';
 
 export const Bg = styled(bg)`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: #f4f4f2;
     overflow-y: scroll;
     overflow-x: hidden;
 `;
 
 export const StackElements = styled(stackElements)`
+    ${centerHorVer};
     ${CenterHorVer};
     width: 60%;
     max-width: 588px;
@@ -18,7 +19,7 @@ export const StackElements = styled(stackElements)`
 `;
 
 export const StackCards = styled(stackElements)`
-    ${ParentSize};
+    ${parentsize};
 `;
 
 export const EnvelopeCont = styled(motion.div)`

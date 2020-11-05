@@ -31,13 +31,13 @@ export const Bg = styled.div`
     overflow: hidden;
 `;
 
-export const CenterHorVer = css`
+export const centerHorVer = css`
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 
-export const ParentSize = css`
+export const parentsize = css`
     width: 100%;
     height: 100%;
 `;

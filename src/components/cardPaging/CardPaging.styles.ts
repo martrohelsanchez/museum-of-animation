@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import {MobileView as mobileview, ParentSize, CenterHorVer} from '../../shared/styles';
+import {MobileView as mobileview, parentsize, centerHorVer} from '../../shared/styles';
 
 export const CardPaging = styled.div`
-    ${ParentSize};
-    ${CenterHorVer}
+    ${parentsize};
+    ${centerHorVer}
     background-color: #8bcdcd;
 `;
 
 export const MobileView = styled(mobileview)`
-    ${CenterHorVer}
+    ${centerHorVer}
     flex-direction: row;
 `;
 
@@ -30,19 +30,15 @@ export const PageCont = styled(motion.div)`
     }
 `;
 
-export const Carousel = styled.div`
-    height: 70%;
-`;
-
 export const PageWrapper = styled(motion.div)`
-    ${ParentSize};
+    ${parentsize};
     margin: 0 auto;
     flex: 0 0 auto;
     border-radius: 20px;
 `;
 
 export const Page = styled(motion.div)<{bgColor: string}>`
-    ${ParentSize};
+    ${parentsize};
     display: flex;
     flex-direction: column-reverse;
     background-color: ${({bgColor}) => bgColor};
@@ -59,9 +55,15 @@ export const Swipe = styled.polygon`
 `;
 
 export const Edge = styled(motion.div)`
-    ${CenterHorVer};
-    height: 100%;
+    ${centerHorVer};
+    height: calc(100% - 20px);
     width: 100%;
     overflow: hidden;
     border-radius: 50px;
+
+    @media all and (max-width: ${({ theme }) => theme.mobile}) {
+        & {
+            border-radius: 10px;
+        }
+    }
 `;

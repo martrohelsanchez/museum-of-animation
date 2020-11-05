@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {Bg as bg, ParentSize, CenterHorVer} from '../../shared/styles'
+import {Bg as bg, parentsize, centerHorVer} from '../../shared/styles'
 
 export const Bg = styled(bg)<{bgColor: string}>`
     background-color: ${({bgColor}) => bgColor};
@@ -30,7 +30,7 @@ export const NavCircle = styled(motion.div)<{bgColor: string}>`
 `;
 
 export const Grab = styled(motion.div)`
-    ${ParentSize};
+    ${parentsize};
     position: absolute;
     top: 0;
     left: 0;
@@ -40,7 +40,7 @@ export const Grab = styled(motion.div)`
 `;
 
 export const NextColorCont = styled(Grab)`
-    ${CenterHorVer};
+    ${centerHorVer};
     position: absolute;
     top: 0;
     left: 0;
@@ -51,7 +51,7 @@ export const NextColor = styled(Grab)<{bgColor: string}>`
 `;
 
 export const Svg = styled(motion.svg)`
-    ${ParentSize};
+    ${parentsize};
     transform: rotate(90deg);
 `;
 

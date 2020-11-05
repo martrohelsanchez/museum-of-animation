@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import {Bg as bg, CenterHorVer} from '../../shared/styles';
+import {Bg as bg, centerHorVer} from '../../shared/styles';
 
 export const Bg = styled(bg)`
     background-color: #28abb9;
@@ -8,7 +8,7 @@ export const Bg = styled(bg)`
 `;
 
 export const ChatHead = styled(motion.div)`
-    ${CenterHorVer};
+    ${centerHorVer};
     position: absolute;
     top: 0;
     left: 0;

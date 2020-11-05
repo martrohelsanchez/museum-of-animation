@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import {Bg as bg, CenterHorVer, ParentSize} from '../../shared/styles';
+import {Bg as bg, centerHorVer, parentsize} from '../../shared/styles';
 
 export const Bg = styled(bg)`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: #f4f6ff;
 `;
 
@@ -15,7 +15,7 @@ export const CardCont = styled(motion.div)`
 `;
 
 export const Card = styled(motion.div)`
-    ${ParentSize};
+    ${parentsize};
     position: absolute;
     top: 0;
     left: 0;

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {Bg as bg, CenterHorVer} from '../../shared/styles';
+import {Bg as bg, centerHorVer} from '../../shared/styles';
 
 export const Bg = styled(bg)`
-    ${CenterHorVer};
+    ${centerHorVer};
     background-color: #003a47;   
 `;
 
