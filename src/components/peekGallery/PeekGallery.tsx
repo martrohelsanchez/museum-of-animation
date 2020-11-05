@@ -37,17 +37,23 @@ function PeekGallery({isAnimationInView}: AnimationProps) {
     )
 }
 
+const spring = {
+    type: 'spring',
+    mass: 1.2,
+    restDelta: 0.01,
+    stiffness: 300
+}
+
 const cardVariant: Variants = {
     open: (index) => ({
         rotateX: -25,
         y: -(index * 50),
-        boxShadow: '0px -10px 40px -5px rgba(0, 0, 0, 0.1)'
+        transition: spring
     }),
     close: {
         rotateX: 0,
         y: 0,
-        boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0)'
-}
     }
+}
 
 export default PeekGallery;
