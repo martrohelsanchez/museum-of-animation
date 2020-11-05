@@ -30,7 +30,7 @@ function Page({
     text, 
     windowSize, 
     addAnimationStack, 
-    flyAnimationsBack
+    isAnimationInView
 }: PageProps) {
     const grabberX = useMotionValue(0);
     const grabberY = useMotionValue(0);
@@ -115,7 +115,7 @@ function Page({
         <S.Cont
             style={{
                 rotate: wholePageRotate,
-                x: wholePageX
+                willChange: isAnimationInView ? 'transform' : undefined
             }}
             animate={wholePageAnimate}
         >
