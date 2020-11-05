@@ -6,6 +6,7 @@ import * as S from './OnboardingScreen.styles';
 import useWindowSize from '../../hooks/useWindowSize';
 import {AnimationProps} from '../../shared/types';
 
+//inspiration 0:40 https://www.youtube.com/watch?v=gq9w14ag0ls&t=40s
 
 const pageBgColor = ['#db6400', '#bedbbb', '#734046', '#fcdada', '#bedbbb'];
 

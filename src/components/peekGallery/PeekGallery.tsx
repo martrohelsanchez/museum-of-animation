@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import * as S from './PeekGallery.styles';
 import {AnimationProps} from '../../shared/types';
 
-function PeekGallery() {
+//inspiration https://www.framer.com/examples/perspective-3d/
 
 function PeekGallery({isAnimationInView}: AnimationProps) {
     const [isOpen, setIsOpen] = useState(false);

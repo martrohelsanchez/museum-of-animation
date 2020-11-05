@@ -6,6 +6,8 @@ import {PanInfo} from 'framer-motion/types';
 import Page from './Page';
 import {AnimationProps} from '../../shared/types';
 
+//inspiration https://www.framer.com/examples/card-paging/
+
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging({isAnimationInView}: AnimationProps) {

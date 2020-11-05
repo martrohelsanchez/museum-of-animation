@@ -8,6 +8,7 @@ import kathryn from '../../images/kathryn.jpg';
 import thea from '../../images/thea.jpg';
 import {AnimationProps} from '../../shared/types';
 
+//inspiration https://www.framer.com/examples/toggle-menu/
 
 function ToggleMenu({isAnimationInView}: AnimationProps) {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
