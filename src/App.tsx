@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useTransform, useViewportScroll} from 'framer-motion';
+import {useTransform, useElementScroll} from 'framer-motion';
 import {ThemeProvider} from 'styled-components';
 
 import * as S from './App.styles';
@@ -8,12 +8,10 @@ import TwitterLike from './components/twitterLike/TwitterLike';
 import AddMsg from './components/addMsg/AddMsg';
 import PeekGallery from './components/peekGallery/PeekGallery';
 import ListShuffler from './components/listShuffler/ListShuffler';
-import DropLets from './components/droplets/Dropslets';
 import ChatHead from './components/chatHeads/ChatHeads';
 import CardPaging from './components/cardPaging/CardPaging';
 import useWindowSize from './hooks/useWindowSize';
 import theme from './theme';
-import CardRotate from './components/cardRotate/CardRotate';
 import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
 import Space from './components/space/Space';
 import SpreadCards from './components/spreadCards/SpreadCards'
@@ -21,25 +19,48 @@ import Calendar from './components/calendar/Calendar';
 import ChristmasCard from './components/christmasCard/ChristmasCard';
 
 function App() {
-    const {scrollY} = useViewportScroll();
+    const windowSize = useWindowSize();
+    const root = document.getElementById('root') as HTMLDivElement;
+    const rootRef = useRef(root);
+    const {scrollY} = useElementScroll(rootRef);
     const prevScrollY = useRef(0);
     const [currentPage, setCurrPage] = useState(0);
     const scrollTimeout = useRef<number | undefined>(undefined);
+    const isTouching = useRef(false);
+    const rootHeight = root.getBoundingClientRect().height;
 
     useEffect(() => {
-        document.addEventListener('scroll', onScroll);
-    }, []);
+        root.addEventListener('scroll', onScroll);
+        document.addEventListener('touchstart', onTouchStart);
+        document.addEventListener('touchend', onTouchEnd);
+        return () => {
+            root.removeEventListener('scroll', onScroll);
+            document.removeEventListener('touchstart', onTouchStart);
+            document.removeEventListener('touchend', onTouchEnd);
+        }
+    }, [windowSize]);
+
+    function onTouchStart(e: TouchEvent) {
+        isTouching.current = true;
+    }
+
+    function onTouchEnd(e: TouchEvent) {
+        isTouching.current = false;
+    }
 
     function onScroll(e: Event) {
         clearTimeout(scrollTimeout.current);
-        scrollTimeout.current = setTimeout(() => {
-            scrollTimeout.current = undefined;
-            snap();
-        }, 500);
+        // if (isTouching) {
+            scrollTimeout.current = setTimeout(() => {
+                scrollTimeout.current = undefined;
+                snap();
+            }, 200);
+        // }
     }
 
     function snap() {
-        const currFullPage = scrollY.get() / window.innerHeight;
+        console.log('snap')
+        const currFullPage = scrollY.get() / rootHeight;
         const scrollDir = scrollY.get() - prevScrollY.current > 0 ? 'down' : 'up';
         let targetPage: number;
 
@@ -49,11 +70,11 @@ function App() {
             targetPage = getTargetPage(currFullPage, 0.20);
         }
 
-        window.scroll({
-            top: targetPage * window.innerHeight,
+        root.scroll({
+            top: targetPage * rootHeight,
             behavior: "smooth"
         });
-        prevScrollY.current = targetPage * window.innerHeight;
+        prevScrollY.current = targetPage * rootHeight;
         setCurrPage(targetPage);
     }
 
@@ -67,23 +88,21 @@ function App() {
         }
     }
 
-    const windowSize = useWindowSize();
-    const originPageY = currentPage * windowSize.height;
+    const originPageY = currentPage * rootHeight;
     const scale = useTransform(scrollY, [originPageY - 300, originPageY, originPageY + 300], [.9, 1, .9]);
     const animations = [
-        ChristmasCard,
-        CardPaging, 
+        ListShuffler, 
         PeekGallery, 
         AddMsg, 
+        CardPaging, 
         Calendar,
         SpreadCards, 
         Space, 
         OnBoardingScreen, 
         ChatHead, 
-        ListShuffler, 
         Typing, 
         TwitterLike, 
-        DropLets
+        ChristmasCard,
     ];
 
     return (
@@ -96,7 +115,9 @@ function App() {
                         zIndex: 1
                     }}
                 >
-                    <Animation />
+                    <Animation
+                        isAnimationInView={i === currentPage}
+                    />
                 </S.Section>
             ))}
         </ThemeProvider>
