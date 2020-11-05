@@ -38,7 +38,7 @@ const Envelope = styled(motion.img)`
 
 export const EnvelopeBack = styled(Envelope)`
     z-index: 1;
-    box-shadow: -10px 20px 30px -10px rgba(50, 50, 73, 0.4);
+    box-shadow: -20px 10px 30px -10px rgba(50, 50, 73, 0.3);
 `;
 
 export const EnvelopeFront = styled(Envelope)`
@@ -77,13 +77,15 @@ export const CardLeftBack = styled(Card)`
     z-index: 5;
 `;
 
+const fullShadow = '-10px 30px 70px -10px rgba(50, 50, 73, 0.2)';
+
 export const CardLeftFront = styled(Card)`
     z-index: 4;
     transform: perspective(900px);
-    box-shadow: -10px 20px 30px -10px rgba(50, 50, 73, 0.4);
+    box-shadow: ${fullShadow};
 `;
 
 export const CardRightFront = styled(Card)`
     z-index: 3;  
-    box-shadow: -10px 10px 30px 0 rgba(50, 50, 73, 0.4);
+    box-shadow: ${fullShadow};
 `;
