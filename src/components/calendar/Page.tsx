@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useMotionValue, useTransform, PanInfo, useAnimation} from 'framer-motion';
 
 import * as S from './calendar.styles';
+import useWindowSize from '../../hooks/useWindowSize';
 
 interface PageProps {
     isLast: boolean;
@@ -12,6 +13,7 @@ interface PageProps {
     };
     addAnimationStack: (animation: () => Promise<void>) => void;
     flyAnimationsBack: () => void;
+    isAnimationInView: boolean;
 }
 
 const flyOutSpring = {
@@ -30,12 +32,17 @@ function Page({
     text, 
     windowSize, 
     addAnimationStack, 
+    flyAnimationsBack,
     isAnimationInView
 }: PageProps) {
+    const pageRef = useRef<HTMLDivElement>(null!);
+    const pageWidth = pageRef.current?.getBoundingClientRect().width || 0;
+
     const grabberX = useMotionValue(0);
     const grabberY = useMotionValue(0);
     const grabberXanimate = useAnimation();
-    const grabberXrange = [-600, 0, 600];
+    const rangeEnd = windowSize.width / 1.5 - pageWidth / 2;
+    const grabberXrange = [-rangeEnd, 0, rangeEnd];
 
     const pageSkewX = useTransform(grabberX, grabberXrange, [-30, 0, 30]);
     const pageScale = useTransform(grabberX, grabberXrange, [0.7, 1, 0.7]);
@@ -50,7 +57,7 @@ function Page({
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         const velocityX = info.velocity.x;
 
-        if (velocityX <= 1000 && velocityX >= -800) {
+        if (velocityX <= 500 && velocityX >= -500) {
             grabberXanimate.start({
                 x: 0,
                 transition: {
@@ -115,6 +122,7 @@ function Page({
         <S.Cont
             style={{
                 rotate: wholePageRotate,
+                x: wholePageX,
                 willChange: isAnimationInView ? 'transform' : undefined
             }}
             animate={wholePageAnimate}
@@ -129,6 +137,7 @@ function Page({
                 >
                 </S.Shadow>
                 <S.Page
+                    ref={pageRef}
                     style={{
                         skewX: pageSkewX,
                         transformOrigin: 'top',
