@@ -17,7 +17,7 @@ function Typing({isAnimationInView}: AnimationProps) {
                                 key={num}
                                 custom={num}
                                 variants={variant}
-                                animate={'typing'}
+                                animate={isAnimationInView ? 'start' : 'stop'}
                             >
                             </S.Dot>
                         ))}
@@ -29,14 +29,18 @@ function Typing({isAnimationInView}: AnimationProps) {
 }
 
 const variant: Variants = {
-    typing: (i: number) => ({
+    start: (i: number) => ({
         y: ['0%', '-90%', '0%'],
         transition: {
             delay: i * 0.15,
+            // staggerChildren: 1,
             repeat: Infinity,
             repeatDelay: .5
         }
-    })
+    }),
+    stop: {
+        y: ['0%', '0%', '0%']
+    }
 }
 
 export default Typing;
