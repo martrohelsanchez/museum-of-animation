@@ -12,7 +12,8 @@ export const Bg = styled(bg)`
 
 export const StackElements = styled(stackElements)`
     ${centerHorVer};
-    ${CenterHorVer};
+    position: sticky;
+    top: 300px;
     width: 60%;
     max-width: 588px;
     padding-top: min(38.82%, 385px);
