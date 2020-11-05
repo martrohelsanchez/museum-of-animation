@@ -6,9 +6,10 @@ import {AnimationProps} from '../../shared/types';
 
 //inspiration https://www.framer.com/examples/perspective-3d/
 
+const cards = ['white', 'white', 'white'];
+
 function PeekGallery({isAnimationInView}: AnimationProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const cards = ['white', 'white', 'white'];
 
     return (
         <S.Bg>
