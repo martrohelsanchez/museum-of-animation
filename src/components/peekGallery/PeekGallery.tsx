@@ -22,7 +22,9 @@ function PeekGallery({isAnimationInView}: AnimationProps) {
                                 variants={cardVariant}
                                 style={{
                                     perspective: '500px',
-                                    zIndex: cards.length - i
+                                    zIndex: cards.length - i,
+                                    boxShadow: isOpen ? '0 -5px 10px -2px rgba(50, 50, 73, 0.2)' : 'none',
+                                    willChange: isAnimationInView ? 'transition, box-shadow' : undefined
                                 }}
                                 onClick={e => setIsOpen(!isOpen)}
                                 custom={i}
