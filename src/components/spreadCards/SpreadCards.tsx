@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import * as S from './SpreadCards.styles';
-import { Variants } from 'framer-motion';
+import {Variants} from 'framer-motion';
 import {AnimationProps} from '../../shared/types';
 
 const cards = [
