@@ -6,27 +6,27 @@ import { AnimationProps } from '../../shared/types';
 const data = [
   {
     num: 0,
-    content: 'Zero'
+    content: 'Please'
   },
   {
     num: 1,
-    content: 'One'
+    content: 'Can'
   },
   {
     num: 2,
-    content: 'Two'
+    content: 'me'
   },
   {
     num: 3,
-    content: 'Three'
+    content: '?'
   },
   {
     num: 4,
-    content: 'Four'
+    content: 'You'
   },
   {
     num: 5,
-    content: 'Five'
+    content: 'Arrange'
   }
 ];
 
