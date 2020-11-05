@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import {useElementScroll, motion, useTransform, Variants} from 'framer-motion';
+import {useElementScroll, motion, useTransform, Variants, useAnimation} from 'framer-motion';
 
 import useWindowSize from '../../hooks/useWindowSize';
 import * as S from './ChristmasCard.style';
@@ -23,19 +23,21 @@ const cardSpring = {
 
 function ChristmasCard({isAnimationInView}: AnimationProps) {
     const windowSize = useWindowSize();
+    const [cardIsOpen, setCardIsOpen] = useState(false);
     const bgRef = useRef<HTMLDivElement>(null);
     const envRef = useRef<HTMLDivElement>(null!);
     const envFlapRef = useRef<HTMLImageElement>(null!);
     const envFront = useRef<HTMLImageElement>(null!);
     const {scrollYProgress} = useElementScroll(bgRef);
     const envWidth = envRef.current?.getBoundingClientRect().width || 0;
-    const christmasCardHeight = envRef.current ? envRef.current.getBoundingClientRect().height * 0.90 : 0;
+    const foldedCardHeight = envRef.current ? envRef.current.getBoundingClientRect().height * 0.90 : 0;
 
     const envFlapRotateX = useTransform(scrollYProgress, [0, flapOpen, moveEnvLeftStart, moveEnvLeftEnd - 0.09], [0, 180, 180, 0]);
     const envRotate = useTransform(scrollYProgress, [flapOpen, rotateRight, rotateLeft], [0, 20, 0]);
-    const envY = useTransform(scrollYProgress, [0, moveEnvLeftEnd], [0, getScrollTopEnd(bgRef) * moveEnvLeftEnd]);
     const envX = useTransform(scrollYProgress, [moveEnvLeftStart, moveEnvLeftEnd], [0, -(windowSize.width / 2 + envWidth / 2)]);
-    const christmasCardY = useTransform(scrollYProgress, [flapOpen, rotateRight, rotateLeft], [0, -(christmasCardHeight + 50), 0]);
+    const cardLeftAnimate = useAnimation();
+    const cardLeftRotateX = useTransform(scrollYProgress, [0, rotateRight, rotateLeft], [0, 0, 40]);
+    const CardY = useTransform(scrollYProgress, [flapOpen, rotateRight, rotateLeft], [0, -(foldedCardHeight + 50), 0]);
 
     useEffect(() => {
         scrollYProgress.onChange(y => {
@@ -55,8 +57,24 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
     }, [])
 
     function onCardClick() {
-        setCardIsOpen(!cardIsOpen);
+        const spring = {
+            type: 'spring',
+            mass: 2,
+            restDelta: 0.01
         }
+
+        setCardIsOpen(!cardIsOpen);
+        if (cardIsOpen) {
+            cardLeftAnimate.start({
+                rotateX: 40,
+                transition: spring
+            });
+        } else {
+            cardLeftAnimate.start({
+                rotateX: 180,
+            });
+        }
+    }
 
     return (
         <S.Bg
@@ -67,7 +85,11 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                 ref={envRef}
                 style={{
                     rotate: envRotate,
-                    y: envY,
+                    top: bgRef.current && envRef.current ? 
+                        //Center horizontally 
+                        bgRef.current.getBoundingClientRect().height / 2 - envRef.current.getBoundingClientRect().height / 2 
+                            : 
+                        0
                 }}
             >
                     <S.EnvelopeBack src={envelopeBack} 
@@ -84,7 +106,8 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                     <S.CardCont 
                         onClick={onCardClick}
                         style={{
-                            y: christmasCardY,
+                            y: CardY,
+                            willChange: isAnimationInView ? 'transform' : undefined
                         }}
                         transition={cardSpring}
                         animate={cardIsOpen ? 'open' : 'close'}
@@ -93,19 +116,20 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                         <S.StackCards>
                             <S.CardLeftBack 
                                 src={christmasCardBack} 
-                                variants={cardLeftBackVariant}
-                                style={{
-                                    perspective: 1500
-                                }}
                                 transition={cardSpring}
+                                style={{
+                                    rotateX: cardLeftRotateX,
+                                    willChange: isAnimationInView ? 'transform' : undefined
+                                }}
+                                animate={cardLeftAnimate}
                             />
                             <S.CardLeftFront 
                                 src={christmasCardFront} 
-                                variants={cardLeftFrontVariant}
-                                style={{
-                                    perspective: 1500
-                                }}
                                 transition={cardSpring}
+                                style={{
+                                    rotateX: cardLeftRotateX,
+                                    willChange: isAnimationInView ? 'transform' : undefined
+                                }}
                             />
                             <S.CardRightFront
                                 src={christmasCardFront}
@@ -128,41 +152,16 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
     );
 }
 
-const cardLeftBackVariant: Variants = {
-    close: {
-        rotateX: 10
-    },
-    open: {
-        rotateX: 180
-    }
-}
-
-const cardLeftFrontVariant: Variants = {
-    close: {
-        rotateX: 10
-    },
-    open: {
-        rotateX: 180
-    }
-}
-
 const cardVariant: Variants = {
     close: {
         rotate: 0,
-        x: 0
+        x: 0,
+        scale: 1
     },
     open: {
         rotate: -90,
-        x: '50%'
-    }
-}
-
-function getScrollTopEnd(ref: React.RefObject<HTMLDivElement>) {
-    const el = ref.current;
-    if (el) {
-        return el.scrollHeight - el.clientHeight
-    } else {
-        return 0;
+        x: '40%',
+        scale: 1.2
     }
 }
 
