@@ -1,8 +1,10 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useContext} from 'react';
+import {ThemeContext} from 'styled-components';
 import {MotionValue, PanInfo, AnimationControls, Variants} from 'framer-motion/types';
 import {useTransform} from 'framer-motion';
 
-import * as S from './CardPaging.styles';
+import * as S from './cardPaging.styles';
+import useWindowSize from '../../hooks/useWindowSize';
 
 interface CardProps {
     color: string;
@@ -18,7 +20,19 @@ interface CardProps {
 
 let lastOpenedPage = 0;
 
-function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage, colors, cardPagingWidth}: CardProps) {
+function Page({
+    color, 
+    i, 
+    pageX, 
+    pageY, 
+    pageAnimation, 
+    openedPage, 
+    setOpenedPage, 
+    colors, 
+    cardPagingWidth
+}: CardProps) {
+    const theme = useContext(ThemeContext);
+    const windowSize = useWindowSize();
     const [count, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
@@ -87,7 +101,6 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
     function pageOnClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         const dragX = -(i * closedPageWidth) - pageX.get();
         if (pageY.get() < 3 && pageY.get() > -3 && dragX < 3 && dragX > -3) {
-            document.documentElement.requestFullscreen();
             lastOpenedPage = i;
             setOpenedPage(i);
         }
@@ -119,6 +132,7 @@ function Page({color, i, pageX, pageY, pageAnimation, openedPage, setOpenedPage,
                     rotateY: openedPage === null ? pageRotateY : 0,
                     perspective: '600px'
                 }}
+                custom={windowSize.width <= parseInt(theme.mobile)}
                 variants={pageVariant}
             >
                 <S.SwipeSvg 
@@ -144,9 +158,9 @@ const pageWrapper: Variants = {
 }
 
 const pageVariant: Variants = {
-    openPage: {
-        borderRadius: '50px'
-    },
+    openPage: (isMobile) => ({
+        borderRadius: isMobile ? '10px' : '50px'
+    }),
     closePage: {
         borderRadius: '20px'
     }
