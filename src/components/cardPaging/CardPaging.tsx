@@ -11,7 +11,7 @@ import {AnimationProps} from '../../shared/types';
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging({isAnimationInView}: AnimationProps) {
-    const [count, setCount] = useState(0);
+    const [, setCount] = useState(0);
     const [openedPage, setOpenedPage] = useState<number | null>(null);
     const pageX = useMotionValue(0);
     const pageAnimation = useAnimation();

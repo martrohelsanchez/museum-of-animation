@@ -54,7 +54,7 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                 envFront.current.style.zIndex = '5';
             }
         });
-    }, [])
+    }, [scrollYProgress])
 
     function onCardClick() {
         const spring = {

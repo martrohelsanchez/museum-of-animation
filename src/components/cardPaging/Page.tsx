@@ -33,7 +33,7 @@ function Page({
 }: CardProps) {
     const theme = useContext(ThemeContext);
     const windowSize = useWindowSize();
-    const [count, setCount] = useState(0);
+    const [, setCount] = useState(0);
     const pageRef = useRef<HTMLDivElement>(null);
     const closedPageWidthRef = useRef(0);
     const closedPageWidth = closedPageWidthRef.current;
@@ -93,7 +93,7 @@ function Page({
 
         if (decimalPart > wiggleRoom) {
             return Math.ceil(num);
-        } {
+        } else {
             return Math.floor(num);
         }
     }

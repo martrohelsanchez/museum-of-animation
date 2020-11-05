@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {useMotionValue, useTransform, PanInfo, useAnimation} from 'framer-motion';
 
 import * as S from './calendar.styles';
-import useWindowSize from '../../hooks/useWindowSize';
 
 interface PageProps {
     isLast: boolean;

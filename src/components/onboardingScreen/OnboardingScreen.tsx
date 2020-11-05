@@ -26,7 +26,6 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
     const nextColorAnimate = useAnimation();
 
     async function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        console.log(info.velocity.x)
         if (info.velocity.x > 500 || info.velocity.x < -500) {
             if (info.offset.x < 0 && pageNum < pageBgColor.length) {
                 await navPage('next');
@@ -48,9 +47,6 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
         grabAnimate.start({
             x: 0
         });
-    }
-
-    function onDrag(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
     }
 
     function onDragStart(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
@@ -76,7 +72,7 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
             backgroundColor: pageBgColor[pageNum - 1]
         });
         
-        setPageNum(c => go == 'next' ? ++c : --c);
+        setPageNum(c => go === 'next' ? ++c : --c);
 
         await grabAnimate.start({
             x: 0,
@@ -105,7 +101,6 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
                     drag='x'
                     onDragEnd={onDragEnd}
                     onDragStart={onDragStart}
-                    // onDrag={onDrag}
                     style={{
                         x: grabX
                     }}

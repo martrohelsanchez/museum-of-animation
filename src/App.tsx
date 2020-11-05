@@ -38,7 +38,8 @@ function App() {
             document.removeEventListener('touchstart', onTouchStart);
             document.removeEventListener('touchend', onTouchEnd);
         }
-    }, [windowSize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowSize, root]);
 
     function onTouchStart(e: TouchEvent) {
         isTouching.current = true;
@@ -59,7 +60,6 @@ function App() {
     }
 
     function snap() {
-        console.log('snap')
         const currFullPage = scrollY.get() / rootHeight;
         const scrollDir = scrollY.get() - prevScrollY.current > 0 ? 'down' : 'up';
         let targetPage: number;
