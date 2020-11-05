@@ -46,4 +46,5 @@ export const Card = styled(motion.div)<{bgColor: string}>`
     border-radius: 10px;
     cursor: pointer;
     will-change: box-shadow;
+    transition: 0.5s box-shadow;
 `;
