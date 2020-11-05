@@ -2,10 +2,11 @@ import React from 'react';
 import {Variants} from 'framer-motion/types';
 
 import * as S from './Typing.styles';
+import {AnimationProps} from '../../shared/types';
 
 const arrDots = [1, 2, 3];
 
-function Typing() {
+function Typing({isAnimationInView}: AnimationProps) {
     return (
         <S.Bg>
             <S.TypingCont>

@@ -3,8 +3,9 @@ import {Variants} from 'framer-motion/types';
 import {useMotionValue} from 'framer-motion';
 
 import * as S from './TwitterLike.styles';
+import {AnimationProps} from '../../shared/types';
 
-function TwitterLike() {
+function TwitterLike({isAnimationInView}: AnimationProps) {
     const [isLiked, setIsLiked] = useState(false);
     const waveBgColor = useMotionValue('#f15858');
 

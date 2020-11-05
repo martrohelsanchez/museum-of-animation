@@ -5,8 +5,9 @@ import * as S from './Space.styles';
 import useWindowSize from '../../hooks/useWindowSize';
 import astronaut from '../../images/astronaut.svg';
 import asteroid from '../../images/asteroid.svg';
+import {AnimationProps} from '../../shared/types';
 
-function Space() {
+function Space({isAnimationInView}: AnimationProps) {
     const windowSize = useWindowSize();
     const particles = useAnimation();
 
@@ -56,7 +57,8 @@ function Space() {
                 }}
                 style={{
                     left: 80,
-                    top: 200
+                    top: 200,
+                    willChange: isAnimationInView ? 'transform' : undefined
                 }}
             />
             <S.Asteroid

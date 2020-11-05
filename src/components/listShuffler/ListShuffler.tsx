@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import * as S from './ListShuffler.style';
+import { AnimationProps } from '../../shared/types';
 
 const data = [
   {
@@ -35,7 +36,7 @@ const spring = {
   damping: 15
 };
 
-function App() {
+function App(props: AnimationProps) {
   const [list, setList] = useState(data);
 
 

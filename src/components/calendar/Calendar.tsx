@@ -3,8 +3,8 @@ import React, {useRef} from 'react';
 import * as S from './calendar.styles';
 import Page from './Page';
 import useWindowSize from '../../hooks/useWindowSize';
+import {AnimationProps} from '../../shared/types';
 
-// const pages = ['Mon', 'Teus', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
 const calendar = ['Sun', 'Sat', 'Fri', 'Thurs', 'Wed', 'Teus', 'Mon'];
 
 function wait(timeout: number) {
@@ -15,7 +15,7 @@ function wait(timeout: number) {
     })
 }
 
-function Calendar() {
+function Calendar({isAnimationInView}: AnimationProps) {
     const windowSize = useWindowSize();
     const animationStack = useRef<{(): Promise<void>}[]>([]);
 
@@ -55,6 +55,7 @@ function Calendar() {
                                 addAnimationStack={addAnimationStack}
                                 flyAnimationsBack={flyAnimationsBack}
                                 isLast={i === 0}
+                                isAnimationInView={isAnimationInView}
                             />
                         ))}
                     </S.StackElements>

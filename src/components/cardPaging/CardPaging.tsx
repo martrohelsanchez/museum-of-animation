@@ -1,13 +1,14 @@
 import React, {useState, useRef, useEffect} from 'react';
 
-import * as S from './CardPaging.styles';
+import * as S from './cardPaging.styles';
 import {useMotionValue, useAnimation, Variants} from 'framer-motion';
 import {PanInfo} from 'framer-motion/types';
 import Page from './Page';
+import {AnimationProps} from '../../shared/types';
 
 const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
-function CardPaging() {
+function CardPaging({isAnimationInView}: AnimationProps) {
     const [count, setCount] = useState(0);
     const [openedPage, setOpenedPage] = useState<number | null>(null);
     const pageX = useMotionValue(0);

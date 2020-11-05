@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import * as S from './SpreadCards.styles';
 import { Variants } from 'framer-motion';
+import {AnimationProps} from '../../shared/types';
 
 const cards = [
     'https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg',
@@ -12,7 +13,7 @@ const cards = [
     'https://upload.wikimedia.org/wikipedia/en/d/de/RWS_Tarot_01_Magician.jpg'
 ];
 
-function SpreadCards() {
+function SpreadCards({isAnimationInView}: AnimationProps) {
     const [isCardsSpread, setIsCardsSpread] = useState(false);
 
     function onCardClick() {
@@ -50,7 +51,6 @@ const cardVariant: Variants = {
     spread: i => ({
         x: `${getPart(250, cards.length + 1, i + 1) - 125}%`,
         rotate: getPart(80, cards.length - 1, i) - 40,
-        boxShadow: '0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3)',
         transition: {
             type: 'spring',
             stiffness: 150,
@@ -61,7 +61,6 @@ const cardVariant: Variants = {
     notSpread: i => ({
         rotate: -40,
         x: `${(getPart(250, cards.length + 1, cards.length) - 125) - i * 1.5}%`,
-        boxShadow: '0 5px 5px 1px rgba(50, 50, 73, 0.1), 0 5px 5px 1px rgba(50, 50, 73, 0.1)',
         transition: {
             type: 'spring',
             mass: 2.5,

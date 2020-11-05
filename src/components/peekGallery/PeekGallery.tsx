@@ -2,8 +2,11 @@ import { Variants } from 'framer-motion';
 import React, { useState } from 'react';
 
 import * as S from './PeekGallery.styles';
+import {AnimationProps} from '../../shared/types';
 
 function PeekGallery() {
+
+function PeekGallery({isAnimationInView}: AnimationProps) {
     const [isOpen, setIsOpen] = useState(false);
     const cards = ['white', 'white', 'white'];
 
@@ -44,7 +47,7 @@ const cardVariant: Variants = {
         rotateX: 0,
         y: 0,
         boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0)'
-    }
 }
+    }
 
 export default PeekGallery;

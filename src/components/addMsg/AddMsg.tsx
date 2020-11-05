@@ -6,8 +6,10 @@ import ashley from '../../images/ashley.jpg';
 import barbie from '../../images/barbie.jpg';
 import kathryn from '../../images/kathryn.jpg';
 import thea from '../../images/thea.jpg';
+import {AnimationProps} from '../../shared/types';
 
-function ToggleMenu() {
+
+function ToggleMenu({isAnimationInView}: AnimationProps) {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const menu = [ashley, barbie, kathryn, thea];
 

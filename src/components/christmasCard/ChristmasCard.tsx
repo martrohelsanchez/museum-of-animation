@@ -8,6 +8,7 @@ import envelopeFront from '../../images/envelope-front.svg';
 import envelopeFlap from '../../images/envelope-flap.svg';
 import christmasCardBack from '../../images/christmas-card-back.svg';
 import christmasCardFront from '../../images/christmas-card-front.svg';
+import {AnimationProps} from '../../shared/types';
 
 const flapOpen = 0.25;
 const rotateRight = 0.48;
@@ -20,9 +21,7 @@ const cardSpring = {
     stiffness: 40
 }
 
-function ChristmasCard() {
-    const [cardIsOpen, setCardIsOpen] = useState(false);
-
+function ChristmasCard({isAnimationInView}: AnimationProps) {
     const windowSize = useWindowSize();
     const bgRef = useRef<HTMLDivElement>(null);
     const envRef = useRef<HTMLDivElement>(null!);
@@ -57,7 +56,7 @@ function ChristmasCard() {
 
     function onCardClick() {
         setCardIsOpen(!cardIsOpen);
-    }
+        }
 
     return (
         <S.Bg

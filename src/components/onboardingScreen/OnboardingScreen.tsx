@@ -4,10 +4,12 @@ import {PanInfo} from 'framer-motion/types';
 
 import * as S from './OnboardingScreen.styles';
 import useWindowSize from '../../hooks/useWindowSize';
+import {AnimationProps} from '../../shared/types';
+
 
 const pageBgColor = ['#db6400', '#bedbbb', '#734046', '#fcdada', '#bedbbb'];
 
-function OnBoardingScreen() {
+function OnBoardingScreen({isAnimationInView}: AnimationProps) {
     const windowSize = useWindowSize();
     const leftDragEnd = -windowSize.width / 2;
     const rightDragEnd = windowSize.width / 2;

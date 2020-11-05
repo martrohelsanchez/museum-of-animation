@@ -7,10 +7,11 @@ import ashley from '../../images/ashley.jpg';
 import barbie from '../../images/barbie.jpg';
 import kathryn from '../../images/kathryn.jpg';
 import thea from '../../images/thea.jpg';
+import {AnimationProps} from '../../shared/types';
 
 const images = [kathryn, thea, barbie, ashley, 'transparent'];
 
-function ChatHead() {
+function ChatHead({isAnimationInView}: AnimationProps) {
     const bgRef = useRef<HTMLDivElement>(null!);
     const windowSize = useWindowSize();
     const mousePos = useAnimation();
