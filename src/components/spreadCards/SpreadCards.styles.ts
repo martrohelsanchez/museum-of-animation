@@ -25,5 +25,11 @@ export const Card = styled(motion.div)`
     background-size: auto 90%;
     background-repeat: no-repeat;
     background-position: center center;
-    will-change: box-shadow;
+    box-shadow: -40px 40px 60px -15px rgba(50, 50, 73, 0.3);
+
+    @media all and (max-width: ${({ theme }) => theme.mobile}) {
+        & {
+            box-shadow: -20px 20px 30px -10px rgba(50, 50, 73, 0.3)
+        }
+    }
 `;
