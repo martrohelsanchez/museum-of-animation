@@ -56,7 +56,7 @@ export const Swipe = styled.polygon`
 
 export const Edge = styled(motion.div)`
     ${centerHorVer};
-    height: calc(100% - 20px);
+    height: 100%;
     width: 100%;
     overflow: hidden;
     border-radius: 50px;
@@ -64,6 +64,7 @@ export const Edge = styled(motion.div)`
     @media all and (max-width: ${({ theme }) => theme.mobile}) {
         & {
             border-radius: 10px;
+            height: calc(100% - 20px);
         }
     }
 `;
