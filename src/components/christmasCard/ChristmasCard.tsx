@@ -109,7 +109,6 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                             y: CardY,
                             willChange: isAnimationInView ? 'transform' : undefined
                         }}
-                        transition={cardSpring}
                         animate={cardIsOpen ? 'open' : 'close'}
                         variants={cardVariant}
                     >
@@ -128,7 +127,7 @@ function ChristmasCard({isAnimationInView}: AnimationProps) {
                                 transition={cardSpring}
                                 style={{
                                     rotateX: cardLeftRotateX,
-                                    willChange: isAnimationInView ? 'transform' : undefined
+                                    willChange: isAnimationInView ? 'transform, box-shadow' : undefined
                                 }}
                             />
                             <S.CardRightFront
@@ -156,12 +155,16 @@ const cardVariant: Variants = {
     close: {
         rotate: 0,
         x: 0,
-        scale: 1
+        scale: 1,
     },
     open: {
         rotate: -90,
         x: '40%',
-        scale: 1.2
+        scale: 1.2,
+        transition: {
+            type: 'spring',
+            restDelta: 0.01
+        }
     }
 }
 
