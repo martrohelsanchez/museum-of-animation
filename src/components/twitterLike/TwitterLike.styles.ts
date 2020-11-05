@@ -18,7 +18,7 @@ export const TwitterLike = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: #cfecff;
 `;
 
 export const WaveOuter = styled(motion.div)`
@@ -41,4 +41,5 @@ export const WaveInner = styled(motion.div)`
 export const LikeCont = styled.div`
     ${centerHorVer};
     position: relative;  
+    cursor: pointer;
 `;
