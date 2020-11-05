@@ -38,6 +38,7 @@ const Envelope = styled(motion.img)`
 
 export const EnvelopeBack = styled(Envelope)`
     z-index: 1;
+    box-shadow: -10px 20px 30px -10px rgba(50, 50, 73, 0.4);
 `;
 
 export const EnvelopeFront = styled(Envelope)`
@@ -60,10 +61,11 @@ export const CardCont = styled(motion.div)`
     height: 90%;
     z-index: 4;
     cursor: pointer;
+    perspective: 1500;
 `;
 
 const Card = styled(motion.img)`
-    ${ParentSize};
+    ${parentsize};
     position: absolute;
     top: 0;
     transform: perspective(900px);
@@ -78,8 +80,10 @@ export const CardLeftBack = styled(Card)`
 export const CardLeftFront = styled(Card)`
     z-index: 4;
     transform: perspective(900px);
+    box-shadow: -10px 20px 30px -10px rgba(50, 50, 73, 0.4);
 `;
 
 export const CardRightFront = styled(Card)`
     z-index: 3;  
+    box-shadow: -10px 10px 30px 0 rgba(50, 50, 73, 0.4);
 `;
