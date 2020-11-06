@@ -135,14 +135,13 @@ function Page({
                 custom={windowSize.width <= parseInt(theme.mobile)}
                 variants={pageVariant}
             >
-                <S.SwipeSvg 
-                    viewBox="0 0 72 39.25"
+                <S.SwipeUp
                     hide={openedPage === null ? true : false}
-                >
-                    <S.Swipe 
-                        points="72 35.99 68.76 39.23 36.01 6.49 3.24 39.25 0 36.01 32.77 3.24 36 0.01 36.01 0 72 35.99" 
+                    iconStyle={{
+                        opacity: 0.4,
+                        fill: 'white'
+                    }}
                     />
-                </S.SwipeSvg>
             </S.Page>
         </S.PageWrapper>
     )
