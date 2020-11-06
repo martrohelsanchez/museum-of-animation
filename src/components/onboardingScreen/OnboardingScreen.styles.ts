@@ -4,8 +4,7 @@ import {motion} from 'framer-motion';
 import swipe from '../../shared/Swipe';
 import {Bg as bg, parentsize, centerHorVer} from '../../shared/styles'
 
-export const Bg = styled(bg)<{bgColor: string}>`
-    background-color: ${({bgColor}) => bgColor};
+export const Bg = styled(bg)`
     display: flex;
     justify-content: center;
     align-items: flex-end;
