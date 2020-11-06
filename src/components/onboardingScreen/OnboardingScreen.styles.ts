@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
+import swipe from '../../shared/Swipe';
 import {Bg as bg, parentsize, centerHorVer} from '../../shared/styles'
 
 export const Bg = styled(bg)<{bgColor: string}>`
@@ -56,3 +57,8 @@ export const Svg = styled(motion.svg)`
 `;
 
 export const Arrow = styled.polygon``;
+
+export const Swipe = styled(swipe)`
+    width: 40%;
+    transform: rotate(90deg);
+`;

@@ -24,6 +24,7 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
     const navScale = useTransform(grabX, grabXrange, [8, 1, 8]);
     const navRotateY = useTransform(grabX, grabXrange, [-89, 0, 89]);
     const nextColorAnimate = useAnimation();
+    const swipeDisplay = useMotionValue('block');
 
     async function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.velocity.x > 500 || info.velocity.x < -500) {
@@ -38,15 +39,27 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
                 nextColorAnimate.set({
                     scale: 0
                 })
+                showSwipe(pageNum + 1);
                 return null;
             } else if ((info.offset.x > 0 && pageNum > 1)) {
-                navPage('back');
+                await navPage('back');
+                showSwipe(pageNum - 1);
                 return null;
             }
         }
-        grabAnimate.start({
-            x: 0
+        await grabAnimate.start({
+            x: 0,
+            transition: {
+                type: 'tween'
+            }
         });
+        showSwipe(pageNum);
+    }
+
+    function showSwipe(pageNum: number) {
+        if (pageNum < pageBgColor.length) {
+            swipeDisplay.set('block');
+        }
     }
 
     function onDragStart(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
@@ -55,6 +68,7 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
                 backgroundColor: pageBgColor[pageNum - 2]
             })
         }
+        swipeDisplay.set('none');
     }
 
     async function navPage(go: 'next' | 'back') {
@@ -65,13 +79,13 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
             }
         });
 
-        grabAnimate.set({
-            x: go === 'next' ? rightDragEnd : leftDragEnd
-        });
         navAnimate.set({
             backgroundColor: pageBgColor[pageNum - 1]
         });
-        
+        grabAnimate.set({
+            x: go === 'next' ? rightDragEnd : leftDragEnd
+        });
+
         setPageNum(c => go === 'next' ? ++c : --c);
 
         await grabAnimate.start({
@@ -113,14 +127,14 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
                         scale: 0
                     }}
                 ></S.NextColor>
-                {/* <S.Svg
-                    viewBox="0 0 72 72"
-                >
-                    <S.Arrow 
-                        points="72 35.99 68.76 39.23 36.01 6.49 3.24 39.25 0 36.01 32.77 3.24 36 0.01 36.01 0 72 35.99"
-                        fill={pageBgColor[pageNum - 1]}
-                    />
-                </S.Svg> */}
+                <S.Swipe
+                    iconStyle={{
+                        fill: pageBgColor[pageNum - 1]
+                    }}
+                    svgStyle={{
+                        display: swipeDisplay
+                    }}
+                />
             </S.NavCircle>
         </S.Bg>
     )
