@@ -48,7 +48,8 @@ function CardPaging({isAnimationInView}: AnimationProps) {
                             bottom: 0
                         }}
                         style={{
-                            y: pageY
+                            y: pageY,
+                            willChange: isAnimationInView ? 'height, width' : undefined
                         }}
                     >
                         {colors.map((color, i) => (
