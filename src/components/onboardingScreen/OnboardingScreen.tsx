@@ -70,7 +70,7 @@ function OnBoardingScreen(props: AnimationProps) {
 
 
     async function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        if (info.velocity.x > 500 || info.velocity.x < -500) {
+        if (info.velocity.x > 100 || info.velocity.x < -50) {
             if (info.offset.x < 0 && pageNum < pageBgColor.length) {
                 await navPage('next');
                 await nextColorAnimate.start({
