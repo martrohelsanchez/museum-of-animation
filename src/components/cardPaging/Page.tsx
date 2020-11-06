@@ -13,6 +13,7 @@ interface CardProps {
     pageY: MotionValue<number>;
     pageAnimation: AnimationControls;
     setOpenedPage: React.Dispatch<React.SetStateAction<number | null>>;
+    setCurrClosedPage: React.Dispatch<React.SetStateAction<number>>;
     openedPage: number | null;
     colors: string[];
     cardPagingWidth: number;
@@ -26,6 +27,7 @@ function Page({
     pageX, 
     pageY, 
     pageAnimation, 
+    setCurrClosedPage,
     openedPage, 
     setOpenedPage, 
     colors, 
@@ -50,39 +52,36 @@ function Page({
     }, []);
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        if (pageX.get() === 0) {
-            // if (pageY.get() > 60 || pageY.get() < -60) {
-            //     setOpenedPage(null);
-            // }
-        } else {
-            if (info.offset.x > 0) {
-                //Dragging direction is to the left
-                const pagePassed = getPagePassed(info.offset.x / closedPageWidth, 0.35);
-                const targetPageIndex = i - pagePassed;
+        const pagePassed = getPagePassed(info.offset.x / closedPageWidth, 0.35);
 
-                if (targetPageIndex < 0) {
-                    pageAnimation.start({
-                        x: 0
-                    })
-                } else {
-                    pageAnimation.start({
-                        x: -(targetPageIndex * closedPageWidth)
-                    });
-                }
+        if (info.offset.x > 0) {
+            //Dragging direction is to the left
+            const targetPageIndex = i - pagePassed;
+
+            if (targetPageIndex < 0) {
+                pageAnimation.start({
+                    x: 0
+                })
             } else {
-                //Dragging direction is to the right
-                const pagePassed = getPagePassed(info.offset.x / closedPageWidth, 0.35);
-                const targetIndex = i + pagePassed
+                pageAnimation.start({
+                    x: -(targetPageIndex * closedPageWidth)
+                });
+                setCurrClosedPage(targetPageIndex);
+            }
 
-                if (targetIndex > colors.length - 1) {
-                    pageAnimation.start({
-                        x: -(colors.length - 1) * closedPageWidth
-                    })
-                } else {
-                    pageAnimation.start({
-                        x: -(targetIndex) * closedPageWidth
-                    });
-                }
+        } else {
+            //Dragging direction is to the right
+            const targetPageIndex = i + pagePassed
+
+            if (targetPageIndex > colors.length - 1) {
+                pageAnimation.start({
+                    x: -(colors.length - 1) * closedPageWidth
+                })
+            } else {
+                pageAnimation.start({
+                    x: -(targetPageIndex) * closedPageWidth
+                });
+                setCurrClosedPage(targetPageIndex);
             }
         }
     }
@@ -141,7 +140,7 @@ function Page({
                         opacity: 0.4,
                         fill: 'white'
                     }}
-                    />
+                />
             </S.Page>
         </S.PageWrapper>
     )
