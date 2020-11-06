@@ -10,7 +10,7 @@ import {AnimationProps} from '../../shared/types';
 
 const pageBgColor = ['#db6400', '#bedbbb', '#734046', '#fcdada', '#bedbbb'];
 
-function OnBoardingScreen({isAnimationInView}: AnimationProps) {
+function OnBoardingScreen(props: AnimationProps) {
     const windowSize = useWindowSize();
     const leftDragEnd = -windowSize.width / 2;
     const rightDragEnd = windowSize.width / 2;
@@ -62,15 +62,6 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
         }
     }
 
-    function onDragStart(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        if (pageNum > 1 && info.offset.x > 0) {
-            navAnimate.set({
-                backgroundColor: pageBgColor[pageNum - 2]
-            })
-        }
-        swipeDisplay.set('none');
-    }
-
     async function navPage(go: 'next' | 'back') {
         await grabAnimate.start({
             x: go === 'next' ? leftDragEnd : rightDragEnd,
@@ -86,14 +77,54 @@ function OnBoardingScreen({isAnimationInView}: AnimationProps) {
             x: go === 'next' ? rightDragEnd : leftDragEnd
         });
 
-        setPageNum(c => go === 'next' ? ++c : --c);
-
         await grabAnimate.start({
             x: 0,
             transition: {
                 type: 'tween'
             }
         });
+
+        setPageNum(c => go === 'next' ? ++c : --c);
+    }
+
+    function onDragStart(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
+        if (pageNum > 1 && info.offset.x > 0) {
+            navAnimate.set({
+                backgroundColor: pageBgColor[pageNum - 2]
+            })
+        }
+        swipeDisplay.set('none');
+    }
+
+
+    async function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
+        if (info.velocity.x > 500 || info.velocity.x < -500) {
+            if (info.offset.x < 0 && pageNum < pageBgColor.length) {
+                await navPage('next');
+                await nextColorAnimate.start({
+                    scale: 1
+                });
+                navAnimate.set({
+                    backgroundColor: pageBgColor[pageNum + 1]
+                })
+                nextColorAnimate.set({
+                    scale: 0
+                })
+                showSwipe(pageNum + 1);
+                return null;
+            } else if ((info.offset.x > 0 && pageNum > 1)) {
+                await navPage('back');
+                showSwipe(pageNum - 1);
+                return null;
+            }
+        }
+        await grabAnimate.start({
+            x: 0,
+            transition: {
+                type: 'tween'
+            }
+        });
+        showSwipe(pageNum);
     }
 
     return (
