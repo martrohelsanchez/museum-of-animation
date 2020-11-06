@@ -25,36 +25,7 @@ function OnBoardingScreen(props: AnimationProps) {
     const navRotateY = useTransform(grabX, grabXrange, [-89, 0, 89]);
     const nextColorAnimate = useAnimation();
     const swipeDisplay = useMotionValue('block');
-
-    async function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        if (info.velocity.x > 500 || info.velocity.x < -500) {
-            if (info.offset.x < 0 && pageNum < pageBgColor.length) {
-                await navPage('next');
-                await nextColorAnimate.start({
-                    scale: 1
-                });
-                navAnimate.set({
-                    backgroundColor: pageBgColor[pageNum + 1]
-                })
-                nextColorAnimate.set({
-                    scale: 0
-                })
-                showSwipe(pageNum + 1);
-                return null;
-            } else if ((info.offset.x > 0 && pageNum > 1)) {
-                await navPage('back');
-                showSwipe(pageNum - 1);
-                return null;
-            }
-        }
-        await grabAnimate.start({
-            x: 0,
-            transition: {
-                type: 'tween'
-            }
-        });
-        showSwipe(pageNum);
-    }
+    const bgColor = useMotionValue(pageBgColor[0]);
 
     function showSwipe(pageNum: number) {
         if (pageNum < pageBgColor.length) {
@@ -73,6 +44,7 @@ function OnBoardingScreen(props: AnimationProps) {
         navAnimate.set({
             backgroundColor: pageBgColor[pageNum - 1]
         });
+        bgColor.set(go === 'next' ? pageBgColor[pageNum] : pageBgColor[pageNum - 2]);
         grabAnimate.set({
             x: go === 'next' ? rightDragEnd : leftDragEnd
         });
@@ -130,7 +102,9 @@ function OnBoardingScreen(props: AnimationProps) {
     return (
         <S.Bg
             as={motion.div}
-            bgColor={pageBgColor[pageNum - 1]}
+            style={{
+                backgroundColor: bgColor
+            }}
         >
             <S.NavCircle
                 ref={navCircleRef}
