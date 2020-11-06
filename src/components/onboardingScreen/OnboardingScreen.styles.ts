@@ -2,14 +2,36 @@ import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
 import swipe from '../../shared/Swipe';
-import {Bg as bg, parentsize, centerHorVer} from '../../shared/styles'
+import {Bg as bg, parentsize, centerHorVer, MobileView as mobileView} from '../../shared/styles'
 
 export const Bg = styled(bg)`
+    ${centerHorVer};
+`;
+
+export const MobileView = styled(mobileView)`
+    ${centerHorVer};
+
+    @media all and (max-width: ${({ theme }) => theme.mobile}) {
+        & {
+            padding: 0;
+        }
+    }
+`;
+
+export const InnerScreen = styled(bg)`
+    ${parentsize};
     display: flex;
     justify-content: center;
     align-items: flex-end;
     padding: 50px;
     box-sizing: border-box;
+    border-radius: 50px;
+
+    @media all and (max-width: ${({ theme }) => theme.mobile}) {
+        & {
+            border-radius: 0;
+        }
+    }
 `;
 
 export const NavCircle = styled(motion.div)<{bgColor: string}>`

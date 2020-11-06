@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {useAnimation, useMotionValue, useTransform, motion} from 'framer-motion';
 import {PanInfo} from 'framer-motion/types';
 
@@ -8,7 +8,7 @@ import {AnimationProps} from '../../shared/types';
 
 //inspiration 0:40 https://www.youtube.com/watch?v=gq9w14ag0ls&t=40s
 
-const pageBgColor = ['#db6400', '#bedbbb', '#734046', '#fcdada', '#bedbbb'];
+const pageBgColor = ['#5f3fd4', '#ffbff1', '#FFFFFF', '#db6400', '#bedbbb', '#734046'];
 
 function OnBoardingScreen(props: AnimationProps) {
     const windowSize = useWindowSize();
@@ -23,9 +23,9 @@ function OnBoardingScreen(props: AnimationProps) {
     const navAnimate = useAnimation();
     const navScale = useTransform(grabX, grabXrange, [8, 1, 8]);
     const navRotateY = useTransform(grabX, grabXrange, [-89, 0, 89]);
-    const nextColorAnimate = useAnimation();
     const swipeDisplay = useMotionValue('block');
-    const bgColor = useMotionValue(pageBgColor[0]);
+    const InnerScreenColor = useMotionValue(pageBgColor[0]);
+    const nextColorAnimate = useAnimation();
 
     function showSwipe(pageNum: number) {
         if (pageNum < pageBgColor.length) {
@@ -44,7 +44,7 @@ function OnBoardingScreen(props: AnimationProps) {
         navAnimate.set({
             backgroundColor: pageBgColor[pageNum - 1]
         });
-        bgColor.set(go === 'next' ? pageBgColor[pageNum] : pageBgColor[pageNum - 2]);
+        InnerScreenColor.set(go === 'next' ? pageBgColor[pageNum] : pageBgColor[pageNum - 2]);
         grabAnimate.set({
             x: go === 'next' ? rightDragEnd : leftDragEnd
         });
@@ -103,44 +103,53 @@ function OnBoardingScreen(props: AnimationProps) {
         <S.Bg
             as={motion.div}
             style={{
-                backgroundColor: bgColor
+                backgroundColor: pageBgColor[1]
             }}
         >
-            <S.NavCircle
-                ref={navCircleRef}
-                animate={navAnimate}
-                style={{
-                    perspective: 40,
-                    scale: navScale,
-                    rotateY: navRotateY
-                }}
-                bgColor={pageBgColor[pageNum]}
-            >
-                <S.Grab
-                    drag='x'
-                    onDragEnd={onDragEnd}
-                    onDragStart={onDragStart}
+            <S.MobileView>
+                <S.InnerScreen
+                    as={motion.div}
                     style={{
-                        x: grabX
+                        backgroundColor: InnerScreenColor
                     }}
-                    animate={grabAnimate}
-                ></S.Grab>
-                <S.NextColor
-                    bgColor={pageBgColor[pageNum]}
-                    animate={nextColorAnimate}
-                    style={{
-                        scale: 0
-                    }}
-                ></S.NextColor>
-                <S.Swipe
-                    iconStyle={{
-                        fill: pageBgColor[pageNum - 1]
-                    }}
-                    svgStyle={{
-                        display: swipeDisplay
-                    }}
-                />
-            </S.NavCircle>
+                >
+                    <S.NavCircle
+                        ref={navCircleRef}
+                        animate={navAnimate}
+                        style={{
+                            perspective: 40,
+                            scale: navScale,
+                            rotateY: navRotateY
+                        }}
+                        bgColor={pageBgColor[pageNum]}
+                    >
+                        <S.Grab
+                            drag='x'
+                            onDragEnd={onDragEnd}
+                            onDragStart={onDragStart}
+                            style={{
+                                x: grabX
+                            }}
+                            animate={grabAnimate}
+                        ></S.Grab>
+                        <S.NextColor
+                            bgColor={pageBgColor[pageNum]}
+                            animate={nextColorAnimate}
+                            style={{
+                                scale: 0
+                            }}
+                        ></S.NextColor>
+                        <S.Swipe
+                            iconStyle={{
+                                fill: pageBgColor[pageNum - 1]
+                            }}
+                            svgStyle={{
+                                display: swipeDisplay
+                            }}
+                        />
+                    </S.NavCircle>
+                </S.InnerScreen>
+            </S.MobileView>
         </S.Bg>
     )
 }
