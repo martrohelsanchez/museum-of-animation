@@ -26,37 +26,22 @@ function App() {
     const prevScrollY = useRef(0);
     const [currentPage, setCurrPage] = useState(0);
     const scrollTimeout = useRef<number | undefined>(undefined);
-    const isTouching = useRef(false);
     const rootHeight = root.getBoundingClientRect().height;
 
     useEffect(() => {
         root.addEventListener('scroll', onScroll);
-        document.addEventListener('touchstart', onTouchStart);
-        document.addEventListener('touchend', onTouchEnd);
         return () => {
             root.removeEventListener('scroll', onScroll);
-            document.removeEventListener('touchstart', onTouchStart);
-            document.removeEventListener('touchend', onTouchEnd);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowSize, root]);
 
-    function onTouchStart(e: TouchEvent) {
-        isTouching.current = true;
-    }
-
-    function onTouchEnd(e: TouchEvent) {
-        isTouching.current = false;
-    }
-
     function onScroll(e: Event) {
         clearTimeout(scrollTimeout.current);
-        // if (isTouching) {
-            scrollTimeout.current = setTimeout(() => {
-                scrollTimeout.current = undefined;
-                snap();
-            }, 200);
-        // }
+        scrollTimeout.current = setTimeout(() => {
+            scrollTimeout.current = undefined;
+            snap();
+        }, 200);
     }
 
     function snap() {
