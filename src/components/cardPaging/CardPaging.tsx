@@ -12,7 +12,8 @@ const colors = ['#cc0e74', '#1f3c88', '#a8dda8', '#ff9642', '#ffe05d'];
 
 function CardPaging({isAnimationInView}: AnimationProps) {
     const [, setCount] = useState(0);
-    const [openedPage, setOpenedPage] = useState<number | null>(null);
+    const [currOpenedPage, setCurrOpenedPage] = useState<number | null>(null);
+    const [currClosedPage, setCurrClosedPage] = useState(0);
     const pageX = useMotionValue(0);
     const pageAnimation = useAnimation();
     const pageY = useMotionValue(0);
@@ -26,7 +27,7 @@ function CardPaging({isAnimationInView}: AnimationProps) {
 
     function onDragEnd(e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.y > 60 || info.offset.y < -60) {
-            setOpenedPage(null);
+            setCurrOpenedPage(null);
         }
     }
 
@@ -36,11 +37,11 @@ function CardPaging({isAnimationInView}: AnimationProps) {
                 ref={cardPagingRef}
             >
                 <S.Edge
-                    animate={openedPage === null ? 'closePage' : 'openPage'}
+                    animate={currOpenedPage === null ? 'closePage' : 'openPage'}
                 >
                     <S.PageCont
                         variants={pageContVariant}
-                        drag={openedPage === null ? false : 'y'}
+                        drag={currOpenedPage === null ? false : 'y'}
                         onDragEnd={onDragEnd}
                         dragConstraints={{
                             top: 0,
@@ -59,16 +60,39 @@ function CardPaging({isAnimationInView}: AnimationProps) {
                                 pageX={pageX}
                                 pageY={pageY}
                                 pageAnimation={pageAnimation}
-                                openedPage={openedPage}
-                                setOpenedPage={setOpenedPage}
+                                openedPage={currOpenedPage}
+                                setOpenedPage={setCurrOpenedPage}
+                                setCurrClosedPage={setCurrClosedPage}
                                 cardPagingWidth={cardPagingWidthRef.current}
                             />
                         ))}
+                        <S.SwipeLRCont>
+                            <S.SwipeLR 
+                                hide={currClosedPage === 0 || currOpenedPage !== null ? true : false}
+                                direction='left'
+                                iconStyle={{
+                                    opacity: 0.4,
+                                    fill: 'white'
+                                }}
+                            />
+                            <S.SwipeLR 
+                                hide={currClosedPage === colors.length - 1 || currOpenedPage !== null  ? true : false}
+                                direction='right'
+                                iconStyle={{
+                                    opacity: 0.4,
+                                    fill: 'white'
+                                }}
+                            />
+                        </S.SwipeLRCont>
                     </S.PageCont>
                 </S.Edge>
             </S.MobileView>
         </S.CardPaging>
     )
+}
+
+function getCurrPage(pageWidth: number, y: number) {
+    return pageWidth / y;
 }
 
 const pageContVariant: Variants = {

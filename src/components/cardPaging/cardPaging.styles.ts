@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+
 import {MobileView as mobileview, parentsize, centerHorVer} from '../../shared/styles';
+import swipe from '../../shared/Swipe';
 
 export const CardPaging = styled.div`
     ${parentsize};
@@ -14,6 +16,7 @@ export const MobileView = styled(mobileview)`
 `;
 
 export const PageCont = styled(motion.div)`
+    position: relative;
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -40,18 +43,34 @@ export const PageWrapper = styled(motion.div)`
 export const Page = styled(motion.div)<{bgColor: string}>`
     ${parentsize};
     display: flex;
-    flex-direction: column-reverse;
+    flex-wrap: wrap;
     background-color: ${({bgColor}) => bgColor};
+    justify-content: center;
 `;
 
-export const SwipeSvg = styled.svg<{hide: boolean}>`
-    display: ${({hide}) => hide ? 'none' : 'block'};
+export const Swipe = styled(swipe)<{hide?: boolean}>`
+    visibility: ${({hide}) => hide ? 'hidden' : 'visible'};
+`;
+
+export const SwipeUp = styled(Swipe)`
     width: 10%;
     margin: 30px auto;
+    align-self: flex-end;
 `;
 
-export const Swipe = styled.polygon`
-    opacity: .6;
+export const SwipeLR = styled(Swipe)<{direction: 'left' | 'right'}>`
+    transform: ${({direction}) => direction === 'left' ? 'rotate(-90deg)' : 'rotate(90deg)'};
+    height: 100%;
+`;
+
+export const SwipeLRCont = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 8%;
+    align-self: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 `;
 
 export const Edge = styled(motion.div)`
