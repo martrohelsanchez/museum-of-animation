@@ -27,12 +27,12 @@ const data = [
   {
     num: 4,
     content: 'You',
-    bgColor: '#f8bd7f'
+    bgColor: '#e79e4f'
   },
   {
     num: 5,
     content: 'Arrange',
-    bgColor: '#ffc7c7'
+    bgColor: '#f4abc4'
   }
 ];
 
