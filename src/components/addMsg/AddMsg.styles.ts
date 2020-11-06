@@ -1,23 +1,18 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
-import {MobileView as mobileView} from '../../shared/styles';
+import {MobileView as mobileView, parentsize, centerHorVer} from '../../shared/styles';
 
 const bgColor = '#726a95';
 
 export const Bg = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${parentsize};
+    ${centerHorVer};
     background-color: ${bgColor};
-    width: 100%;
-    height: 100%;
 `;
 
 export const MobileView = styled(mobileView)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${centerHorVer};
 
     @media all and (max-width: ${({ theme }) => theme.mobile}) {
         & {
@@ -27,13 +22,12 @@ export const MobileView = styled(mobileView)`
 `;
 
 export const InnerMobile = styled.div`
+    ${parentsize};
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-end;
     background-color: ${bgColor};
     border-radius: 50px;
-    width: 100%;
-    height: 100%;
 `;
 
 export const Circle = styled(motion.div)`
@@ -52,9 +46,8 @@ export const Toggle = styled(Circle)`
 `;
 
 export const ToggleCircle = styled(Circle)`
+    ${parentsize};
     position: absolute;
-    width: 100%;
-    height: 100%;
     z-index: 10;
 `;
 
