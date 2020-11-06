@@ -6,27 +6,33 @@ import { AnimationProps } from '../../shared/types';
 const data = [
   {
     num: 0,
-    content: 'Please'
+    content: 'Hey,',
+    bgColor: '#28df99'
   },
   {
     num: 1,
-    content: 'Can'
+    content: 'Can',
+    bgColor: '#f05454'
   },
   {
     num: 2,
-    content: 'me'
+    content: 'me',
+    bgColor: '#ffe05d'
   },
   {
     num: 3,
-    content: '?'
+    content: '?',
+    bgColor: '#51adcf'
   },
   {
     num: 4,
-    content: 'You'
+    content: 'You',
+    bgColor: '#f8bd7f'
   },
   {
     num: 5,
-    content: 'Arrange'
+    content: 'Arrange',
+    bgColor: '#ffc7c7'
   }
 ];
 
@@ -56,7 +62,12 @@ function App(props: AnimationProps) {
   }
 
   const lists = list.map(list => (
-    <S.List layout transition={spring} num={list.num} key={list.num}>
+    <S.List 
+      layout 
+      transition={spring} 
+      key={list.num}
+      bgColor={list.bgColor}
+    >
       {list.content}
     </S.List>
   ));
