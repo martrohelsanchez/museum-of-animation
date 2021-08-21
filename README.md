@@ -16,6 +16,5 @@ Technologies:
 <ul>
   <li>React.js</li>
   <li>Typescript</li>
-  <li>Framer-motion</li>
   <li>Styled-components</li>
 </ul>
