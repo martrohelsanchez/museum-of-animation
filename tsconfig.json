@@ -19,7 +19,11 @@
     "noEmit": true,
     "jsx": "react",
     "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": "./",
+    "typeRoots": [
+      "./src/@types",
+    ],
   },
   "include": [
     "src"
