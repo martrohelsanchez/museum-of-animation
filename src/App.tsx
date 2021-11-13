@@ -8,7 +8,7 @@ import TwitterLike from './components/twitterLike/TwitterLike';
 import AddMsg from './components/addMsg/AddMsg';
 import PeekGallery from './components/peekGallery/PeekGallery';
 import ListShuffler from './components/listShuffler/ListShuffler';
-import LiquidSwipe from './components/LiquidSwipe';
+import LiquidSwipe from './components/LiquidSwipe/LiquidSwipeAnimation';
 import ChatHead from './components/chatHeads/ChatHeads';
 import CardPaging from './components/cardPaging/CardPaging';
 import useWindowSize from './hooks/useWindowSize';

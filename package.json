@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/styled-components": "^5.1.4",
-    "framer-motion": "^2.9.1",
+    "framer-motion": "^2.9.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.0",

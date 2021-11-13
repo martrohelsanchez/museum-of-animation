@@ -46,12 +46,16 @@ export const InnerMobilView = styled.div`
 `;
 
 export const SwipeHandle = styled(motion.div)`
-  background: gray;
+  background: rgb(255, 191, 241);
+  /* background: black; */
+  background: transparent;
   border-radius: 50%;
   height: 50px;
   width: 50px;
   z-index: 99;
   cursor: grab;
+  position: absolute;
+  left: 330px;
 `;
 
 export const MouseCoordinate = styled.p`
