@@ -18,6 +18,7 @@ import Space from './components/space/Space';
 import SpreadCards from './components/spreadCards/SpreadCards';
 import Calendar from './components/calendar/Calendar';
 import ChristmasCard from './components/christmasCard/ChristmasCard';
+import RepoLink from './components/RepoLink';
 
 const animations = [
   LiquidSwipe,
@@ -100,6 +101,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <RepoLink />
       {animations.map((Animation, i) => (
         <S.Section
           key={i}
