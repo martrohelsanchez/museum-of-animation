@@ -133,7 +133,7 @@ function LiquidSwipe() {
 
   return (
     <>
-      <S.LiquidSwipeGlobalStyle />
+      {/* <S.LiquidSwipeGlobalStyle />
       <S.Container>
         <S.MouseCoordinate>
           x: {cursorPositionInContainer.x}, y: {cursorPositionInContainer.y}
@@ -157,7 +157,7 @@ function LiquidSwipe() {
             </svg>
           </S.InnerMobilView>
         </S.StyledMobileView>
-      </S.Container>
+      </S.Container> */}
     </>
   );
 }

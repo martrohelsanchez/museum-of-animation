@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+type ClipPathContainerProps = {
+  clipPathId: string;
+};
+
 export const LiquidSwipeSvg = styled.svg`
   position: absolute;
   top: 0;
@@ -8,7 +12,6 @@ export const LiquidSwipeSvg = styled.svg`
 `;
 
 export const Handle = styled(motion.div)`
-  /* background: rgb(255, 191, 241); */
   background: black;
   background: transparent;
   border-radius: 50%;
@@ -18,4 +21,10 @@ export const Handle = styled(motion.div)`
   cursor: grab;
   position: absolute;
   left: 330px;
+`;
+
+export const ClipPathContainer = styled.div<ClipPathContainerProps>`
+  height: 100%;
+  width: 100%;
+  clip-path: url(${(props) => props.clipPathId});
 `;

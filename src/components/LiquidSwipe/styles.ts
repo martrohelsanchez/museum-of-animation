@@ -33,29 +33,6 @@ export const InnerMobilView = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  path {
-    fill: rgb(255, 191, 241);
-  }
-`;
-
-export const SwipeHandle = styled(motion.div)`
-  background: rgb(255, 191, 241);
-  /* background: black; */
-  background: transparent;
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  z-index: 99;
-  cursor: grab;
-  position: absolute;
-  left: 330px;
 `;
 
 export const MouseCoordinate = styled.p`

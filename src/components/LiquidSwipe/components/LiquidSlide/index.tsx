@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 
 import * as S from './styles';
+import useRerender from 'src/hooks/useRerender';
 
 const SVG_HEIGHT = 711;
 const SVG_WIDTH = 391;
@@ -21,6 +22,14 @@ const springConfig: Spring = {
   mass: 1.3,
   damping: 5,
 };
+
+type PointerLocation = {
+  x: number;
+  y: number;
+  isAnchorPoint: boolean;
+};
+
+const pointersLocation: PointerLocation[] = [];
 
 function pointLocation(x: number, y: number, isAnchorPoint?: boolean) {
   // pointersLocation.push({
@@ -50,57 +59,57 @@ function pointLocation(x: number, y: number, isAnchorPoint?: boolean) {
 
 type Props = {
   children: React.ReactNode;
+  clipPathId: string;
+  fill: string;
   isCurrentSlide: boolean;
   onSwipeRelease?: () => void;
 };
 
 function LiquidSlide(props: Props) {
-  const { isCurrentSlide, onSwipeRelease } = props;
+  const { clipPathId, fill, isCurrentSlide, onSwipeRelease } = props;
 
+  const rerender = useRerender();
   const pathRef = useRef<SVGPathElement>(null!);
 
   const swipeHandleControls = useAnimation();
 
   const swipeHandleX = useMotionValue(0);
-  const springX = useSpring(0, {
-    bounce: 0.5,
-    mass: 1.1,
-  });
+  const springX = useSpring(0);
 
   const slideD = useTransform(
     [swipeHandleX, springX] as any,
     (params: number[]) => {
       const [swipeHandleXCurrent, springXCurrent] = params;
 
-      const bCurve1 = `C 370 0 ${pointLocation(
-        INITIAL_X - springXCurrent,
+      const bCurve1 = `C ${SVG_WIDTH - springXCurrent} 0 ${pointLocation(
+        SVG_WIDTH - springXCurrent,
         HALF_SVG_HEIGHT - 150 + swipeHandleXCurrent * 2
       )} ${pointLocation(
-        INITIAL_X - springXCurrent,
+        SVG_WIDTH - springXCurrent,
         HALF_SVG_HEIGHT - 100 + swipeHandleXCurrent,
         true
       )}`;
 
       const bCurve2 = `S ${pointLocation(
-        INITIAL_X + swipeHandleXCurrent,
+        SVG_WIDTH + swipeHandleXCurrent,
         HALF_SVG_HEIGHT - 50
       )} ${pointLocation(
-        INITIAL_X + swipeHandleXCurrent,
+        SVG_WIDTH + swipeHandleXCurrent,
         HALF_SVG_HEIGHT,
         true
       )}`;
 
       const bCurve3 = `S ${pointLocation(
-        INITIAL_X - springXCurrent,
+        SVG_WIDTH - springXCurrent,
         HALF_SVG_HEIGHT + 50
       )} ${pointLocation(
-        INITIAL_X - springXCurrent,
+        SVG_WIDTH - springXCurrent,
         HALF_SVG_HEIGHT + 100 - swipeHandleXCurrent,
         true
       )}`;
 
       return `M ${
-        INITIAL_X + springXCurrent
+        SVG_WIDTH - springXCurrent
       } 0, ${bCurve1}, ${bCurve2}, ${bCurve3}, V ${SVG_HEIGHT}, H ${SVG_WIDTH}, V 0, Z`;
     }
   );
@@ -111,9 +120,10 @@ function LiquidSlide(props: Props) {
     }
   }, [isCurrentSlide]);
 
-  function showHandle() {
-    console.log('show handle');
-    swipeHandleControls.start(
+  async function showHandle() {
+    springX.set(10);
+
+    await swipeHandleControls.start(
       {
         x: -40,
       },
@@ -121,19 +131,42 @@ function LiquidSlide(props: Props) {
         ...springConfig,
       }
     );
+
+    rerender();
   }
 
-  function handleDragEnd(
+  async function handleDragEnd(
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
-    springX.set(370);
-    swipeHandleControls.start(
+    springX.set(SVG_WIDTH / 2);
+
+    await swipeHandleControls.start(
+      {
+        x: -SVG_WIDTH - 100,
+      },
+      {
+        stiffness: 500,
+      }
+    );
+
+    springX.set(SVG_WIDTH);
+
+    await swipeHandleControls.start(
+      {
+        x: -SVG_WIDTH + 140,
+      },
+      {
+        stiffness: 500,
+      }
+    );
+
+    await swipeHandleControls.start(
       {
         x: -SVG_WIDTH,
       },
       {
-        ...springConfig,
+        stiffness: 500,
       }
     );
 
@@ -142,12 +175,24 @@ function LiquidSlide(props: Props) {
     }
   }
 
+  const renderPointers = pointersLocation.map((pointer, i) => (
+    <circle
+      key={i}
+      id="pointer"
+      cx={pointer.x}
+      cy={pointer.y}
+      r="6"
+      fill={pointer.isAnchorPoint ? 'black' : 'white'}
+    />
+  ));
+
   return (
     <>
-      <S.LiquidSlidePath d={slideD} id="slide" ref={pathRef} />;
+      {/* <clipPath id={clipPathId}> */}
+      <S.LiquidSlidePath d={slideD} id="slide" ref={pathRef} fill={fill} />;
       <S.Handle
         animate={swipeHandleControls}
-        cx={INITIAL_X + 25}
+        cx={SVG_WIDTH + 25}
         cy={HALF_SVG_HEIGHT}
         drag="x"
         r={25}
@@ -156,8 +201,9 @@ function LiquidSlide(props: Props) {
         }}
         onDragEnd={handleDragEnd}
       />
+      {/* </clipPath> */}
+      {renderPointers}
     </>
   );
 }
-
 export default LiquidSlide;
