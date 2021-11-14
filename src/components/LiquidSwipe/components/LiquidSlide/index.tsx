@@ -12,10 +12,9 @@ import {
 import * as S from './styles';
 import useRerender from 'src/hooks/useRerender';
 
-const SVG_HEIGHT = 711;
-const SVG_WIDTH = 391;
-const HALF_SVG_HEIGHT = 711 / 2;
-const INITIAL_X = 370;
+// const SVG_HEIGHT = 711;
+// const SVG_WIDTH = 391;
+// const HALF_SVG_HEIGHT = 711 / 2;
 
 const springConfig: Spring = {
   type: 'spring',
@@ -61,12 +60,18 @@ type Props = {
   children: React.ReactNode;
   clipPathId: string;
   fill: string;
+  height: number;
   isCurrentSlide: boolean;
+  width: number;
   onSwipeRelease?: () => void;
 };
 
 function LiquidSlide(props: Props) {
-  const { clipPathId, fill, isCurrentSlide, onSwipeRelease } = props;
+  const { clipPathId, fill, height, isCurrentSlide, width, onSwipeRelease } =
+    props;
+
+  const halfHeight = height / 2;
+  const halfWidth = width / 2;
 
   const rerender = useRerender();
   const pathRef = useRef<SVGPathElement>(null!);
@@ -81,36 +86,32 @@ function LiquidSlide(props: Props) {
     (params: number[]) => {
       const [swipeHandleXCurrent, springXCurrent] = params;
 
-      const bCurve1 = `C ${SVG_WIDTH - springXCurrent} 0 ${pointLocation(
-        SVG_WIDTH - springXCurrent,
-        HALF_SVG_HEIGHT - 150 + swipeHandleXCurrent * 2
+      const bCurve1 = `C ${width - springXCurrent} 0 ${pointLocation(
+        width - springXCurrent,
+        halfHeight - 150 + swipeHandleXCurrent * 2
       )} ${pointLocation(
-        SVG_WIDTH - springXCurrent,
-        HALF_SVG_HEIGHT - 100 + swipeHandleXCurrent,
+        width - springXCurrent,
+        halfHeight - 100 + swipeHandleXCurrent,
         true
       )}`;
 
       const bCurve2 = `S ${pointLocation(
-        SVG_WIDTH + swipeHandleXCurrent,
-        HALF_SVG_HEIGHT - 50
-      )} ${pointLocation(
-        SVG_WIDTH + swipeHandleXCurrent,
-        HALF_SVG_HEIGHT,
-        true
-      )}`;
+        width + swipeHandleXCurrent,
+        halfHeight - 50
+      )} ${pointLocation(width + swipeHandleXCurrent, halfHeight, true)}`;
 
       const bCurve3 = `S ${pointLocation(
-        SVG_WIDTH - springXCurrent,
-        HALF_SVG_HEIGHT + 50
+        width - springXCurrent,
+        halfHeight + 50
       )} ${pointLocation(
-        SVG_WIDTH - springXCurrent,
-        HALF_SVG_HEIGHT + 100 - swipeHandleXCurrent,
+        width - springXCurrent,
+        halfHeight + 100 - swipeHandleXCurrent,
         true
       )}`;
 
       return `M ${
-        SVG_WIDTH - springXCurrent
-      } 0, ${bCurve1}, ${bCurve2}, ${bCurve3}, V ${SVG_HEIGHT}, H ${SVG_WIDTH}, V 0, Z`;
+        width - springXCurrent
+      } 0, ${bCurve1}, ${bCurve2}, ${bCurve3}, V ${height}, H ${width}, V 0, Z`;
     }
   );
 
@@ -139,22 +140,22 @@ function LiquidSlide(props: Props) {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
-    springX.set(SVG_WIDTH / 2);
+    springX.set(halfWidth / 2);
 
     await swipeHandleControls.start(
       {
-        x: -SVG_WIDTH - 100,
+        x: -width - 100,
       },
       {
         stiffness: 500,
       }
     );
 
-    springX.set(SVG_WIDTH);
+    springX.set(width);
 
     await swipeHandleControls.start(
       {
-        x: -SVG_WIDTH + 140,
+        x: -width + 140,
       },
       {
         stiffness: 500,
@@ -163,7 +164,7 @@ function LiquidSlide(props: Props) {
 
     await swipeHandleControls.start(
       {
-        x: -SVG_WIDTH,
+        x: -width,
       },
       {
         stiffness: 500,
@@ -192,8 +193,8 @@ function LiquidSlide(props: Props) {
       <S.LiquidSlidePath d={slideD} id="slide" ref={pathRef} fill={fill} />;
       <S.Handle
         animate={swipeHandleControls}
-        cx={SVG_WIDTH + 25}
-        cy={HALF_SVG_HEIGHT}
+        cx={width + 25}
+        cy={halfHeight}
         drag="x"
         r={25}
         style={{

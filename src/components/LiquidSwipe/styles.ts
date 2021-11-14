@@ -1,14 +1,10 @@
 import { motion } from 'framer-motion';
-import { MobileView } from 'src/shared/styles';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { FlexCenter } from '../styledCommon';
+import MobileView from 'src/components/MobileView';
 
-export const LiquidSwipeGlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-`;
+import { FlexCenter } from '../styledCommon';
+import { centerHorVer } from 'src/shared/styles';
 
 export const Container = styled(FlexCenter)`
   height: 100%;
@@ -18,9 +14,12 @@ export const Container = styled(FlexCenter)`
 `;
 
 export const StyledMobileView = styled(MobileView)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .mobile-view-content {
+    ${centerHorVer}
+    background: #51adcf;
+    overflow: hidden;
+    position: relative;
+  }
 `;
 
 export const InnerMobilView = styled.div`

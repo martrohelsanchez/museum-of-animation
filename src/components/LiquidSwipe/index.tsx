@@ -11,19 +11,16 @@ function LiquidSwipeAnimation() {
 
   return (
     <>
-      <S.LiquidSwipeGlobalStyle />
       <S.Container>
         {/* <S.MouseCoordinate>
           x: {cursorPositionInContainer.x}, y: {cursorPositionInContainer.y}
         </S.MouseCoordinate> */}
         <S.StyledMobileView>
-          <S.InnerMobilView>
-            <LiquidSwipe>
-              <div></div>
-              <div></div>
-              <div></div>
-            </LiquidSwipe>
-          </S.InnerMobilView>
+          <LiquidSwipe>
+            <div></div>
+            <div></div>
+            <div></div>
+          </LiquidSwipe>
         </S.StyledMobileView>
       </S.Container>
     </>

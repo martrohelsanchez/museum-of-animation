@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+import { parentsize } from 'src/shared/styles';
+
 type ClipPathContainerProps = {
   clipPathId: string;
 };
+
+export const Container = styled.div`
+  ${parentsize}
+`;
 
 export const LiquidSwipeSvg = styled.svg`
   position: absolute;
