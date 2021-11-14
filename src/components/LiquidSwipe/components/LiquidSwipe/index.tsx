@@ -14,7 +14,7 @@ const SVG_WIDTH = 391;
 function LiquidSwipe(props: Props) {
   const { children } = props;
 
-  const colors = ['rgb(255,191,241)', '#333456', '#726a95'];
+  const colors = ['rgb(255,191,241)', '#333456', '#ECF87F'];
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
