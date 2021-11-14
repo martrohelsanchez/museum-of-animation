@@ -19,6 +19,22 @@ import SpreadCards from './components/spreadCards/SpreadCards';
 import Calendar from './components/calendar/Calendar';
 import ChristmasCard from './components/christmasCard/ChristmasCard';
 
+const animations = [
+  LiquidSwipe,
+  ListShuffler,
+  PeekGallery,
+  AddMsg,
+  CardPaging,
+  Calendar,
+  SpreadCards,
+  Space,
+  OnBoardingScreen,
+  ChatHead,
+  Typing,
+  TwitterLike,
+  ChristmasCard,
+];
+
 function App() {
   const windowSize = useWindowSize();
   const root = document.getElementById('root') as HTMLDivElement;
@@ -81,21 +97,6 @@ function App() {
     [originPageY - 300, originPageY, originPageY + 300],
     [0.9, 1, 0.9]
   );
-  const animations = [
-    LiquidSwipe,
-    ListShuffler,
-    PeekGallery,
-    AddMsg,
-    CardPaging,
-    Calendar,
-    SpreadCards,
-    Space,
-    OnBoardingScreen,
-    ChatHead,
-    Typing,
-    TwitterLike,
-    ChristmasCard,
-  ];
 
   return (
     <ThemeProvider theme={theme}>

@@ -1,50 +1,49 @@
 import React, { useState } from 'react';
 
 import * as S from './ListShuffler.style';
-import { AnimationProps } from '../../shared/types';
+import { AnimationProps } from '../../types/animation';
 
 const data = [
   {
     num: 0,
     content: 'Hey,',
-    bgColor: '#28df99'
+    bgColor: '#28df99',
   },
   {
     num: 1,
     content: 'Can',
-    bgColor: '#f05454'
+    bgColor: '#f05454',
   },
   {
     num: 2,
     content: 'me',
-    bgColor: '#ffe05d'
+    bgColor: '#ffe05d',
   },
   {
     num: 3,
     content: '?',
-    bgColor: '#51adcf'
+    bgColor: '#51adcf',
   },
   {
     num: 4,
     content: 'You',
-    bgColor: '#e79e4f'
+    bgColor: '#e79e4f',
   },
   {
     num: 5,
     content: 'Arrange',
-    bgColor: '#f4abc4'
-  }
+    bgColor: '#f4abc4',
+  },
 ];
 
 const spring = {
-  type: "spring",
+  type: 'spring',
   stiffness: 100,
-  damping: 15
+  damping: 15,
 };
 
 function App(props: AnimationProps) {
   const [list, setList] = useState(data);
-
 
   function handleSwitch() {
     const copy = list.slice(0);
@@ -61,24 +60,17 @@ function App(props: AnimationProps) {
     }
   }
 
-  const lists = list.map(list => (
-    <S.List 
-      layout 
-      transition={spring} 
-      key={list.num}
-      bgColor={list.bgColor}
-    >
+  const lists = list.map((list) => (
+    <S.List layout transition={spring} key={list.num} bgColor={list.bgColor}>
       {list.content}
     </S.List>
   ));
 
   return (
     <S.Cont>
-      <S.ListCont onClick={handleSwitch}>
-        {lists}
-      </S.ListCont>
+      <S.ListCont onClick={handleSwitch}>{lists}</S.ListCont>
     </S.Cont>
-  )
+  );
 }
 
 export default App;

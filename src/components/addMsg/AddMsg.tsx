@@ -6,7 +6,7 @@ import ashley from '../../images/ashley.jpg';
 import barbie from '../../images/barbie.jpg';
 import kathryn from '../../images/kathryn.jpg';
 import thea from '../../images/thea.jpg';
-import { AnimationProps } from '../../shared/types';
+import { AnimationProps } from '../../types/animation';
 
 //inspiration https://www.framer.com/examples/toggle-menu/
 
