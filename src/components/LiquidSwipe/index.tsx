@@ -20,6 +20,13 @@ function LiquidSwipeAnimation() {
             <div></div>
             <div></div>
             <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </LiquidSwipe>
         </S.StyledMobileView>
       </S.Container>

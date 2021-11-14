@@ -10,7 +10,18 @@ type Props = {
 function LiquidSwipe(props: Props) {
   const { children } = props;
 
-  const colors = ['rgb(255,191,241)', '#333456', '#ECF87F'];
+  const colors = [
+    'rgb(255,191,241)',
+    '#333456',
+    '#B1E693',
+    '#161E54',
+    '#F6D7A7',
+    '#51050F',
+    '#CDF2CA',
+    '#4B3869',
+    '#FE8F8F',
+    '#51adcf',
+  ];
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
