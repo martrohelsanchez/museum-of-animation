@@ -22,6 +22,7 @@ import RepoLink from './components/RepoLink';
 
 const animations = [
   LiquidSwipe,
+  OnBoardingScreen,
   ListShuffler,
   PeekGallery,
   AddMsg,
@@ -29,7 +30,6 @@ const animations = [
   Calendar,
   SpreadCards,
   Space,
-  OnBoardingScreen,
   ChatHead,
   Typing,
   TwitterLike,
