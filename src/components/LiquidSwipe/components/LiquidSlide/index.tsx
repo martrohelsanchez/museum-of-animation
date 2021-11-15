@@ -88,10 +88,10 @@ function LiquidSlide(props: Props) {
 
       const bCurve1 = `C ${width - springXCurrent} 0 ${pointLocation(
         width - springXCurrent,
-        halfHeight - 150 + swipeHandleXCurrent * 2
+        halfHeight - 150 + -Math.abs(swipeHandleXCurrent) * 2
       )} ${pointLocation(
         width - springXCurrent,
-        halfHeight - 100 + swipeHandleXCurrent,
+        halfHeight - 100 + -Math.abs(swipeHandleXCurrent),
         true
       )}`;
 
@@ -105,7 +105,7 @@ function LiquidSlide(props: Props) {
         halfHeight + 50
       )} ${pointLocation(
         width - springXCurrent,
-        halfHeight + 100 - swipeHandleXCurrent,
+        halfHeight + 100 - -Math.abs(swipeHandleXCurrent),
         true
       )}`;
 
@@ -120,6 +120,12 @@ function LiquidSlide(props: Props) {
       showHandle();
     }
   }, [isCurrentSlide]);
+
+  useEffect(() => {
+    // springX.onChange((val) => {
+    //   console.log(val);
+    // });
+  }, []);
 
   async function showHandle() {
     springX.set(10);
@@ -140,6 +146,19 @@ function LiquidSlide(props: Props) {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
+    if (info.velocity.x < -200) {
+      moveToNextSlide();
+    } else {
+      await swipeHandleControls.start(
+        {
+          x: -40,
+        },
+        springConfig
+      );
+    }
+  }
+
+  async function moveToNextSlide() {
     springX.set(halfWidth / 2);
 
     await swipeHandleControls.start(
