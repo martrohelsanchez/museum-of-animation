@@ -34,7 +34,7 @@ function LiquidSwipe(props: Props) {
   const renderLiquidSlides = children.map((child, i) => {
     const isCurrentSlide = currentSlideIndex === i;
 
-    function handleSwipeRelease() {
+    function handleMoveToNextSlide() {
       setCurrentSlideIndex(i + 1);
     }
 
@@ -46,7 +46,7 @@ function LiquidSwipe(props: Props) {
         width={liquidSlideWidth}
         isCurrentSlide={isCurrentSlide}
         key={i}
-        onSwipeRelease={handleSwipeRelease}
+        onMoveToNextSlide={handleMoveToNextSlide}
       >
         {child}
       </LiquidSlide>

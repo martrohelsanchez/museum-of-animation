@@ -12,10 +12,6 @@ import {
 import * as S from './styles';
 import useRerender from 'src/hooks/useRerender';
 
-// const SVG_HEIGHT = 711;
-// const SVG_WIDTH = 391;
-// const HALF_SVG_HEIGHT = 711 / 2;
-
 const springConfig: Spring = {
   type: 'spring',
   mass: 1.3,
@@ -63,11 +59,11 @@ type Props = {
   height: number;
   isCurrentSlide: boolean;
   width: number;
-  onSwipeRelease?: () => void;
+  onMoveToNextSlide?: () => void;
 };
 
 function LiquidSlide(props: Props) {
-  const { clipPathId, fill, height, isCurrentSlide, width, onSwipeRelease } =
+  const { clipPathId, fill, height, isCurrentSlide, width, onMoveToNextSlide } =
     props;
 
   const halfHeight = height / 2;
@@ -120,12 +116,6 @@ function LiquidSlide(props: Props) {
       showHandle();
     }
   }, [isCurrentSlide]);
-
-  useEffect(() => {
-    // springX.onChange((val) => {
-    //   console.log(val);
-    // });
-  }, []);
 
   async function showHandle() {
     springX.set(10);
@@ -190,8 +180,8 @@ function LiquidSlide(props: Props) {
       }
     );
 
-    if (onSwipeRelease) {
-      onSwipeRelease();
+    if (onMoveToNextSlide) {
+      onMoveToNextSlide();
     }
   }
 
