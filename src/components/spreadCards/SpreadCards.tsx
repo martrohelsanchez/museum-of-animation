@@ -31,10 +31,8 @@ function SpreadCards({ isAnimationInView }: AnimationProps) {
         {cards.map((image, i) => (
           <S.Card
             key={i}
-            style={{
-              zIndex: cards.length - i,
-              backgroundImage: `url(${image})`,
-            }}
+            zIndex={cards.length - i}
+            bgImage={image}
             onClick={onCardClick}
             animate={isCardsSpread ? 'spread' : 'notSpread'}
             variants={cardVariant}

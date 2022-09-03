@@ -13,7 +13,7 @@ import ChatHead from './components/chatHeads/ChatHeads';
 import CardPaging from './components/cardPaging/CardPaging';
 import useWindowSize from './hooks/useWindowSize';
 import theme from './theme';
-import OnBoardingScreen from './components/onboardingScreen/OnboardingScreen';
+import OnBoardingScreen from './components/onboardingScreen';
 import Space from './components/space/Space';
 import SpreadCards from './components/spreadCards/SpreadCards';
 import Calendar from './components/calendar/Calendar';
@@ -51,8 +51,7 @@ function App() {
     return () => {
       root.removeEventListener('scroll', onScroll);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windowSize, root]);
+  }, []);
 
   function onScroll(e: Event) {
     clearTimeout(scrollTimeout.current);
